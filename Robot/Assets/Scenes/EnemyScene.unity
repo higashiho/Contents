@@ -1261,6 +1261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabItem:
   - {fileID: 1261519893445052151, guid: e6a5c44c011188948a3e6287aea7e75e, type: 3}
+  Count: 3
 --- !u!4 &1798704449
 Transform:
   m_ObjectHideFlags: 0
@@ -1313,6 +1314,7 @@ MonoBehaviour:
   Item: {fileID: 0}
   home: {fileID: 1345762443}
   speed: 7
+  lowSpeed: 6
   HaveItem: 0
 --- !u!54 &1817073710
 Rigidbody:
