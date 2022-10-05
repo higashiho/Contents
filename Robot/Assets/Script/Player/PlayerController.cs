@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour
     
     void Start()
     {
-        
+        b_left = true;
+        b_right = true;
     }
 
    
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey("w"))
         {
+            // TODO DS‰Ÿ‚µ‚½‚Æ‚«‚¤‚¦‚¢‚­
             player.transform.rotation = new Quaternion(0, 0, 0, 0);
             //player.transform.Rotate(new Vector3(0, 90, 0));
             player.transform.position += transform.forward * speed * Time.deltaTime;
