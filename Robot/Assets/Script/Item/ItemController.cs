@@ -33,11 +33,13 @@ public class ItemController : MonoBehaviour
     private void formation()
     {
         number = Random.Range(0, prefabItem.Length);
+
         float x = Random.Range(-posX, posX);
         float z = Random.Range(-posZ, posZ);
 
         Vector3 pos = new Vector3(x, posY, z);
         Instantiate(prefabItem[number], pos, Quaternion.identity);
+
         Count--;
     }
 }

@@ -28,6 +28,7 @@ public class EnemyController : MonoBehaviour
     {
         if (!HaveItem)
             move();
+
         if (HaveItem)
             goAway();
     }
@@ -36,11 +37,15 @@ public class EnemyController : MonoBehaviour
     private void move()
     {
         enemyPosition = transform.position;
+
         //Item = serchTag(gameObject, "Item");
         if (Item == null)
             Item = GameObject.FindWithTag("Item");
+
         transform.LookAt(Item.transform);
+
         enemyPosition += transform.forward * speed * Time.deltaTime;
+
         transform.position = enemyPosition;
     }
 
@@ -48,8 +53,11 @@ public class EnemyController : MonoBehaviour
     private void goAway()
     {
         enemyPosition = transform.position;
+
         transform.LookAt(home.transform);
+
         enemyPosition += transform.forward * speed * Time.deltaTime;
+
         transform.position = enemyPosition;
     }
     /*
