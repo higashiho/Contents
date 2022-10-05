@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour
     private GameObject Item;    //取得アイテム
 
     [SerializeField]
-    private GameObject Home;    //陣地
+    private GameObject home;    //陣地
 
     private Vector3 enemyPosition;  //自分の位置
 
@@ -36,7 +36,7 @@ public class EnemyController : MonoBehaviour
     private void move()
     {
         enemyPosition = transform.position;
-        Item = serchtag(gameObject, "Item");
+        Item = serchTag(gameObject, "Item");
         transform.LookAt(Item.transform);
         enemyPosition += transform.forward * speed * Time.deltaTime;
         transform.position = enemyPosition;
@@ -46,17 +46,17 @@ public class EnemyController : MonoBehaviour
     private void goAway()
     {
         enemyPosition = transform.position;
-        transform.LookAt(Home.transform);
+        transform.LookAt(home.transform);
         enemyPosition += transform.forward * speed * Time.deltaTime;
         transform.position = enemyPosition;
     }
 
     //近くのオブジェクトを探索して入れる
-    private GameObject serchtag(GameObject nowObj, string tagName)
+    private GameObject serchTag(GameObject nowObj, string tagName)
     {
         float tmpDis = 0;   //距離用一次変数
         float nearDis = 0;  //最も近いオブジェクトの距離
-        GameObject targetObj = null;    //オブジェクト
+        GameObject targetObj = default;    //オブジェクト
 
         //タグ指定されたオブジェクトを配列で取得する
         foreach (GameObject obs in GameObject.FindGameObjectsWithTag(tagName))

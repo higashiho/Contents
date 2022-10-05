@@ -1,0 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Col_Item : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        //プレイヤーになったら子になって一緒に動く
+        if (other.gameObject.tag == "Player")
+        {
+            //TODO： プレイヤーの挙動が出来た後記入
+        }
+        //敵に当たったら子になって一緒に動く
+        if (other.gameObject.tag == "Enemy")
+        {
+            this.gameObject.transform.parent = other.gameObject.transform;
+        }
+        //どちらかの拠点に当たると消える
+        if (other.gameObject.tag == "Home")
+        {
+            Destroy(this.gameObject);
+        }
+    }
+}
