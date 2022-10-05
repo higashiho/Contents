@@ -26,8 +26,8 @@ public class Col_Item : MonoBehaviour
     {
         //プレイヤーになったら子になって一緒に動く
         if (other.gameObject.tag == "Player")
-        {
-            //TODO： プレイヤーの挙動が出来た後記入
+        { 
+            this.gameObject.transform.parent = other.gameObject.transform;
         }
         //敵に当たったら子になって一緒に動く
         if (other.gameObject.tag == "Enemy")
