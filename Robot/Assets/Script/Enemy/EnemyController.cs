@@ -12,8 +12,13 @@ public class EnemyController : MonoBehaviour
 
     private Vector3 enemyPosition;  //自分の位置
 
+
     [SerializeField]
-    private float speed = 7.0f; //自身のスピード
+    private float speed; //自身のスピード
+
+    [SerializeField] 
+    private float lowSpeed; //アイテムを持っている状態の自身のスピード
+
 
     public bool HaveItem = false;
 
@@ -56,7 +61,7 @@ public class EnemyController : MonoBehaviour
 
         transform.LookAt(home.transform);
 
-        enemyPosition += transform.forward * speed * Time.deltaTime;
+        enemyPosition += transform.forward * lowSpeed * Time.deltaTime;
 
         transform.position = enemyPosition;
     }
