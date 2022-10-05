@@ -7,10 +7,15 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private GameObject Item;    //取得アイテム
 
-    private Vector3 EnemyPosition;  //自分の位置
+    [SerializeField]
+    private GameObject Home;    //陣地
 
+    private Vector3 enemyPosition;  //自分の位置
+
+    [SerializeField]
     private float speed = 7.0f; //自身のスピード
 
+    public bool HaveItem = false;
 
     // Start is called before the first frame update
     void Start()
@@ -21,17 +26,29 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        move();
+        if (!HaveItem)
+            move();
+        if (HaveItem)
+            goAway();
     }
 
     //挙動
     private void move()
     {
-        EnemyPosition = transform.position;
+        enemyPosition = transform.position;
         Item = serchtag(gameObject, "Item");
         transform.LookAt(Item.transform);
-        EnemyPosition += transform.forward * speed * Time.deltaTime;
-        transform.position = EnemyPosition;
+        enemyPosition += transform.forward * speed * Time.deltaTime;
+        transform.position = enemyPosition;
+    }
+
+    //アイテムをとった後の挙動
+    private void goAway()
+    {
+        enemyPosition = transform.position;
+        transform.LookAt(Home.transform);
+        enemyPosition += transform.forward * speed * Time.deltaTime;
+        transform.position = enemyPosition;
     }
 
     //近くのオブジェクトを探索して入れる
