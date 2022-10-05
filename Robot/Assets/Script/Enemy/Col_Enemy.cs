@@ -6,6 +6,7 @@ public class Col_Enemy : MonoBehaviour
 {
     [SerializeField]
     private EnemyController enemycontroller;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +19,7 @@ public class Col_Enemy : MonoBehaviour
         
     }
 
-    private void OnTriggeEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         //アイテムを取ったら拠点に帰る
         if (other.gameObject.tag == "Item")
