@@ -36,7 +36,9 @@ public class EnemyController : MonoBehaviour
     private void move()
     {
         enemyPosition = transform.position;
-        Item = serchTag(gameObject, "Item");
+        //Item = serchTag(gameObject, "Item");
+        if (Item == null)
+            Item = GameObject.FindWithTag("Item");
         transform.LookAt(Item.transform);
         enemyPosition += transform.forward * speed * Time.deltaTime;
         transform.position = enemyPosition;
@@ -50,7 +52,7 @@ public class EnemyController : MonoBehaviour
         enemyPosition += transform.forward * speed * Time.deltaTime;
         transform.position = enemyPosition;
     }
-
+    /*
     //近くのオブジェクトを探索して入れる
     private GameObject serchTag(GameObject nowObj, string tagName)
     {
@@ -74,5 +76,5 @@ public class EnemyController : MonoBehaviour
         }
         //最も近かったオブジェクトを返す
         return targetObj;
-    }
+    }*/
 }
