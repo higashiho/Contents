@@ -12,6 +12,7 @@ public class Col_Item : MonoBehaviour
     void Start()
     {
         itemControl = GameObject.Find("ItemControl");
+
         itemController = itemControl.gameObject.GetComponent<ItemController>();
     }
 
@@ -37,6 +38,7 @@ public class Col_Item : MonoBehaviour
         if (other.gameObject.tag == "Home")
         {
             itemController.Count++;
+
             Destroy(this.gameObject);
         }
     }
