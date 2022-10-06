@@ -11,7 +11,7 @@ public class ItemController : MonoBehaviour
 
     private float posX = 7.0f;  //生成ｘ座標管理用
     private float posZ = 13.5f; //生成ｚ座標管理用
-    private float posY = 1.0f;  //生成ｙ座標
+    private float posY = 0.5f;  //生成ｙ座標
 
     public int Count = 3;   //生成個数
 

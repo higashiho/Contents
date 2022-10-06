@@ -43,7 +43,8 @@ public class PlayerController : MonoBehaviour
             {
                 player.transform.rotation = new Quaternion(0, 0, 0, 0);
                 player.transform.Rotate(new Vector3(0, -90, 0));
-                b_left = true;
+                b_left = false;
+                b_right = true;
             }
             player.transform.position += transform.forward * speed * Time.deltaTime;
         }
@@ -62,6 +63,7 @@ public class PlayerController : MonoBehaviour
                 player.transform.rotation = new Quaternion(0, 0, 0, 0);
                 player.transform.Rotate(new Vector3(0, 90, 0));
                 b_right = false;
+                b_left = true;
             }
             player.transform.position += transform.forward * speed * Time.deltaTime;
         }
