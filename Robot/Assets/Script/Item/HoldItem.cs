@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HoldItem : MonoBehaviour
 {
-    public bool holding;
+    public bool holding;    //ƒAƒCƒeƒ€‚ğ‚Á‚Ä‚¢‚é‚©
     void Start()
     {
         holding = false;

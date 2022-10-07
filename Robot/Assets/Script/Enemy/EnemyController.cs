@@ -6,34 +6,34 @@ using UnityEngine.AI;
 [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
 public class EnemyController : MonoBehaviour
 {
-    private enum items      //����̎��
+    private enum items      //アイテムの種類
     {
-        Attack  =0,
+        Attack = 0,
         Defense = 1,
     }
 
     [SerializeField]
-    private GameObject item;    //�擾�A�C�e��
+    private GameObject item;    //アイテム格納用
 
     [SerializeField]
-    private GameObject home;    //�w�n
+    private GameObject home;    //拠点
 
-    private UnityEngine.AI.NavMeshAgent navMeshAgent;  //�i�u���b�V���i�[�p
-    private Vector3 enemyPosition;  //�����̈ʒu
+    private UnityEngine.AI.NavMeshAgent navMeshAgent;  //NavMesh格納用
+    private Vector3 enemyPosition;  //自身の位置
 
 
     [SerializeField]
-    private float speed; //���g�̃X�s�[�h
+    private float speed; //自身のスピード
 
-    [SerializeField] 
-    private float lowSpeed; //�A�C�e���������Ă����Ԃ̎��g�̃X�s�[�h
+    [SerializeField]
+    private float lowSpeed; //アイテムを持った時のスピード
 
 
-    public bool HaveItem = false;   //�A�C�e���������Ă��邩
+    public bool HaveItem = false;   //アイテムを持っているか
 
-    private int random = 2;     //�����_���p�ő�l
+    private int random = 2;     //ランダムの最大値
 
-    private int seekItem;   //�ǂ̃A�C�e����T����
+    private int seekItem;   //アイテムを持っているか
 
     // Start is called before the first frame update
     void Start()
@@ -51,7 +51,7 @@ public class EnemyController : MonoBehaviour
             goAway();
     }
 
-    //����
+    //拠点
     private void move()
     {
         //enemyPosition = transform.position;
@@ -61,10 +61,10 @@ public class EnemyController : MonoBehaviour
         if (item == null)
             switch (seekItem)
             {
-                case 0: //�U���A�C�e�������ɍs��
+                case 0: //攻撃アイテムを取りに行く
                     item = GameObject.FindWithTag("AttackItem");
                     break;
-                case 1: //�h��A�C�e�������ɍs��
+                case 1: //防御アイテムを取りに行く
                     item = GameObject.FindWithTag("DefenseItem");
                     break;
                 default:
@@ -84,7 +84,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    //�A�C�e�����Ƃ�����̋���
+    //拠点に戻る
     private void goAway()
     {
         /*
@@ -98,29 +98,4 @@ public class EnemyController : MonoBehaviour
         */
         navMeshAgent.destination = home.transform.position;
     }
-    /*
-    //�߂��̃I�u�W�F�N�g��T�����ē����
-    private GameObject serchTag(GameObject nowObj, string tagName)
-    {
-        float tmpDis = 0;   //�����p�ꎟ�ϐ�
-        float nearDis = 0;  //�ł��߂��I�u�W�F�N�g�̋���
-        GameObject targetObj = default;    //�I�u�W�F�N�g
-
-        //�^�O�w�肳�ꂽ�I�u�W�F�N�g��z��Ŏ擾����
-        foreach (GameObject obs in GameObject.FindGameObjectsWithTag(tagName))
-        {
-            //���g�Ǝ擾�����I�u�W�F�N�g�̋������擾
-            tmpDis = Vector3.Distance(obs.transform.position, nowObj.transform.position);
-
-            //�I�u�W�F�N�g�̋������߂����A0�ł���΃I�u�W�F�N�g���擾
-            //�ꎟ�ϐ��ɋ������i�[
-            if (nearDis == 0 || nearDis > tmpDis)
-            {
-                nearDis = tmpDis;
-                targetObj = obs;
-            }
-        }
-        //�ł��߂������I�u�W�F�N�g��Ԃ�
-        return targetObj;
-    }*/
 }

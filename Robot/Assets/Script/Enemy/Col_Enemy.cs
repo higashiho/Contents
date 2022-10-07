@@ -7,7 +7,8 @@ public class Col_Enemy : MonoBehaviour
     [SerializeField]
     private EnemyController enemycontroller;
 
-    public int HoveCount = 0;   //持ってる個数
+    public int HaveCount = 0;   //持ってる個数
+    private int maxHaveCount = 1;    //カウントが増える最大値
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +26,8 @@ public class Col_Enemy : MonoBehaviour
         //アイテムを取ったら拠点に帰る
         if (other.gameObject.tag == "AttackItem" || other.gameObject.tag == "DefenseItem")
         {
-            HoveCount++;
+            if (HaveCount < maxHaveCount)
+                HaveCount++;
             enemycontroller.HaveItem = true;
             
         }
@@ -33,8 +35,8 @@ public class Col_Enemy : MonoBehaviour
         if (other.gameObject.tag == "Home")
         {
             enemycontroller.HaveItem = false;
-            if (HoveCount > 0)
-                HoveCount--;
+            if (HaveCount > 0)
+                HaveCount--;
         }
     }
 }
