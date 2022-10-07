@@ -11,11 +11,19 @@ public class PlayerController : MonoBehaviour
 
     private bool b_left;
     private bool b_right;
+    private float Top;
+    private float Bottom;
+    private float Right;
+    private float Left;
     
     void Start()
     {
         b_left = true;
         b_right = true;
+        Top = 13.5f;
+        Bottom = -13.5f;
+        Right = 18.5f;
+        Left = -18.5f;
     }
 
    
@@ -28,9 +36,10 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey("w"))
         {
-            // TODO DS‰Ÿ‚µ‚½‚Æ‚«‚¤‚¦‚¢‚­
+            
             player.transform.rotation = new Quaternion(0, 0, 0, 0);
             //player.transform.Rotate(new Vector3(0, 90, 0));
+            if(player.transform.position.z < Top)
             player.transform.position += transform.forward * speed * Time.deltaTime;
             b_left = true;
             b_right = true;
@@ -38,7 +47,6 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey("a"))
         {
-            //player.transform.Rotate(new Vector3(0, 0, 0));
             if (b_left)
             {
                 player.transform.rotation = new Quaternion(0, 0, 0, 0);
@@ -46,13 +54,18 @@ public class PlayerController : MonoBehaviour
                 b_left = false;
                 b_right = true;
             }
-            player.transform.position += transform.forward * speed * Time.deltaTime;
+            if (player.transform.position.x > Left)
+            {
+                player.transform.position += transform.forward * speed * Time.deltaTime;
+            }
         }
         if (Input.GetKey("s"))
         {
             player.transform.rotation = new Quaternion(0, 180, 0, 0);
-            //player.transform.Rotate(new Vector3(0, 90, 0));
-            player.transform.position += transform.forward * speed * Time.deltaTime;
+            if (player.transform.position.z > Bottom)
+            {
+                player.transform.position += transform.forward * speed * Time.deltaTime;
+            }
             b_left = true;
             b_right = true;
         }
@@ -65,7 +78,10 @@ public class PlayerController : MonoBehaviour
                 b_right = false;
                 b_left = true;
             }
-            player.transform.position += transform.forward * speed * Time.deltaTime;
+            if (player.transform.position.x < Right)
+            {
+                player.transform.position += transform.forward * speed * Time.deltaTime;
+            }
         }
       
 

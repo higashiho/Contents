@@ -706,7 +706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabItem:
   - {fileID: 1261519893445052151, guid: e6a5c44c011188948a3e6287aea7e75e, type: 3}
-  Count: 3
+  Count: 300
 --- !u!4 &558642329
 Transform:
   m_ObjectHideFlags: 0
