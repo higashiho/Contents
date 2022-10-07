@@ -7,6 +7,7 @@ public class Col_Enemy : MonoBehaviour
     [SerializeField]
     private EnemyController enemycontroller;
 
+    public int HoveCount = 0;   //持ってる個数
     // Start is called before the first frame update
     void Start()
     {
@@ -22,14 +23,18 @@ public class Col_Enemy : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //アイテムを取ったら拠点に帰る
-        if (other.gameObject.tag == "Item")
+        if (other.gameObject.tag == "AttackItem" || other.gameObject.tag == "DefenseItem")
         {
+            HoveCount++;
             enemycontroller.HaveItem = true;
+            
         }
         //拠点に帰ったら新しいアイテムを取りに行く
         if (other.gameObject.tag == "Home")
         {
-            enemycontroller.HaveItem = false ;
+            enemycontroller.HaveItem = false;
+            if (HoveCount > 0)
+                HoveCount--;
         }
     }
 }

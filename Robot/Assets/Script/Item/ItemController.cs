@@ -15,6 +15,9 @@ public class ItemController : MonoBehaviour
 
     public int Count = 3;   //生成個数
 
+    [SerializeField]
+    private bool Debug = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +30,8 @@ public class ItemController : MonoBehaviour
         //生成個数が０になるまで生成
         if (Count > 0)
             formation();
+        if (Debug)
+            countUp();
     }
 
     //アイテムランダム生成(最大3つ)
@@ -41,5 +46,13 @@ public class ItemController : MonoBehaviour
         Instantiate(prefabItem[number], pos, Quaternion.identity);
 
         Count--;
+    }
+
+    private void countUp()
+    {
+        if (Input.GetKeyDown("g"))
+        {
+            Count++;
+        }
     }
 }
