@@ -1,41 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
+[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
 public class EnemyController : MonoBehaviour
 {
-    private enum items      //‘Šè‚Ìí—Ş
+    private enum items      //ã‚¢ã‚¤ãƒ†ãƒ ã®ç¨®é¡
     {
-        Attack  =0,
+        Attack = 0,
         Defense = 1,
     }
 
     [SerializeField]
-    private GameObject Item;    //æ“¾ƒAƒCƒeƒ€
+    private GameObject item;    //ã‚¢ã‚¤ãƒ†ãƒ æ ¼ç´ç”¨
 
     [SerializeField]
-    private GameObject home;    //w’n
+    private GameObject home;    //æ‹ ç‚¹
 
-    private Vector3 enemyPosition;  //©•ª‚ÌˆÊ’u
+    private UnityEngine.AI.NavMeshAgent navMeshAgent;  //NavMeshæ ¼ç´ç”¨
+    private Vector3 enemyPosition;  //è‡ªèº«ã®ä½ç½®
 
 
     [SerializeField]
-    private float speed; //©g‚ÌƒXƒs[ƒh
+    private float speed; //è‡ªèº«ã®ã‚¹ãƒ”ãƒ¼ãƒ‰
 
-    [SerializeField] 
-    private float lowSpeed; //ƒAƒCƒeƒ€‚ğ‚Á‚Ä‚¢‚éó‘Ô‚Ì©g‚ÌƒXƒs[ƒh
+    [SerializeField]
+    private float lowSpeed; //ã‚¢ã‚¤ãƒ†ãƒ ã‚’æŒã£ãŸæ™‚ã®ã‚¹ãƒ”ãƒ¼ãƒ‰
 
 
-    public bool HaveItem = false;   //ƒAƒCƒeƒ€‚ğ‚Á‚Ä‚¢‚é‚©
+    public bool HaveItem = false;   //ã‚¢ã‚¤ãƒ†ãƒ ã‚’æŒã£ã¦ã„ã‚‹ã‹
 
-    private int random = 2;     //ƒ‰ƒ“ƒ_ƒ€—pÅ‘å’l
+    private int random = 2;     //ãƒ©ãƒ³ãƒ€ãƒ ã®æœ€å¤§å€¤
 
-    private int seekItem;   //‚Ç‚ÌƒAƒCƒeƒ€‚ğ’T‚·‚©
+    private int seekItem;   //ã‚¢ã‚¤ãƒ†ãƒ ã‚’æŒã£ã¦ã„ã‚‹ã‹
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -48,21 +51,21 @@ public class EnemyController : MonoBehaviour
             goAway();
     }
 
-    //‹““®
+    //æ‹ ç‚¹
     private void move()
     {
-        enemyPosition = transform.position;
+        //enemyPosition = transform.position;
 
         //Item = serchTag(gameObject, "Item");
         seekItem = Random.Range(0, random);
-        if (Item == null)
+        if (item == null)
             switch (seekItem)
             {
-                case 0: //UŒ‚ƒAƒCƒeƒ€‚ğæ‚è‚És‚­
-                    Item = GameObject.FindWithTag("AttackItem");
+                case 0: //æ”»æ’ƒã‚¢ã‚¤ãƒ†ãƒ ã‚’å–ã‚Šã«è¡Œã
+                    item = GameObject.FindWithTag("AttackItem");
                     break;
-                case 1: //–hŒäƒAƒCƒeƒ€‚ğæ‚è‚És‚­
-                    Item = GameObject.FindWithTag("DefenseItem");
+                case 1: //é˜²å¾¡ã‚¢ã‚¤ãƒ†ãƒ ã‚’å–ã‚Šã«è¡Œã
+                    item = GameObject.FindWithTag("DefenseItem");
                     break;
                 default:
                     break;
@@ -70,17 +73,21 @@ public class EnemyController : MonoBehaviour
 
         else
         {
-            transform.LookAt(Item.transform);
+            /*transform.LookAt(Item.transform);
 
             enemyPosition += transform.forward * speed * Time.deltaTime;
 
             transform.position = enemyPosition;
+            */
+
+            navMeshAgent.destination = item.transform.position;
         }
     }
 
-    //ƒAƒCƒeƒ€‚ğ‚Æ‚Á‚½Œã‚Ì‹““®
+    //æ‹ ç‚¹ã«æˆ»ã‚‹
     private void goAway()
     {
+        /*
         enemyPosition = transform.position;
 
         transform.LookAt(home.transform);
@@ -88,30 +95,7 @@ public class EnemyController : MonoBehaviour
         enemyPosition += transform.forward * lowSpeed * Time.deltaTime;
 
         transform.position = enemyPosition;
+        */
+        navMeshAgent.destination = home.transform.position;
     }
-    /*
-    //‹ß‚­‚ÌƒIƒuƒWƒFƒNƒg‚ğ’Tõ‚µ‚Ä“ü‚ê‚é
-    private GameObject serchTag(GameObject nowObj, string tagName)
-    {
-        float tmpDis = 0;   //‹——£—pˆêŸ•Ï”
-        float nearDis = 0;  //Å‚à‹ß‚¢ƒIƒuƒWƒFƒNƒg‚Ì‹——£
-        GameObject targetObj = default;    //ƒIƒuƒWƒFƒNƒg
-
-        //ƒ^ƒOw’è‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚Åæ“¾‚·‚é
-        foreach (GameObject obs in GameObject.FindGameObjectsWithTag(tagName))
-        {
-            //©g‚Ææ“¾‚µ‚½ƒIƒuƒWƒFƒNƒg‚Ì‹——£‚ğæ“¾
-            tmpDis = Vector3.Distance(obs.transform.position, nowObj.transform.position);
-
-            //ƒIƒuƒWƒFƒNƒg‚Ì‹——£‚ª‹ß‚¢‚©A0‚Å‚ ‚ê‚ÎƒIƒuƒWƒFƒNƒg‚ğæ“¾
-            //ˆêŸ•Ï”‚É‹——£‚ğŠi”[
-            if (nearDis == 0 || nearDis > tmpDis)
-            {
-                nearDis = tmpDis;
-                targetObj = obs;
-            }
-        }
-        //Å‚à‹ß‚©‚Á‚½ƒIƒuƒWƒFƒNƒg‚ğ•Ô‚·
-        return targetObj;
-    }*/
 }
