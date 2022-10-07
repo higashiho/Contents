@@ -1260,8 +1260,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabItem:
+  - {fileID: 293128098140346710, guid: 8385d263d19b4d443a2893ca09f6db23, type: 3}
   - {fileID: 1261519893445052151, guid: e6a5c44c011188948a3e6287aea7e75e, type: 3}
   Count: 3
+  Debug: 1
 --- !u!4 &1798704449
 Transform:
   m_ObjectHideFlags: 0

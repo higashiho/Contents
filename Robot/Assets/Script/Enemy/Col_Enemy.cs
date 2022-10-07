@@ -22,7 +22,7 @@ public class Col_Enemy : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //アイテムを取ったら拠点に帰る
-        if (other.gameObject.tag == "Item")
+        if (other.gameObject.tag == "AttackItem" || other.gameObject.tag == "DefenseItem")
         {
             enemycontroller.HaveItem = true;
         }

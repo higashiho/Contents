@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 1261519893445052137}
   - component: {fileID: 1261519893445052141}
   m_Layer: 0
-  m_Name: Item
-  m_TagString: Item
+  m_Name: AttackItem
+  m_TagString: AttackItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 230ae8582f8e0d94e880cfed9a4375c5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

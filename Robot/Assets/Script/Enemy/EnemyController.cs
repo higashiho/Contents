@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    private enum items      //相手の種類
+    {
+        Attack  =0,
+        Defense = 1,
+    }
+
     [SerializeField]
     private GameObject Item;    //取得アイテム
 
@@ -20,7 +26,11 @@ public class EnemyController : MonoBehaviour
     private float lowSpeed; //アイテムを持っている状態の自身のスピード
 
 
-    public bool HaveItem = false;
+    public bool HaveItem = false;   //アイテムを持っているか
+
+    private int random = 2;     //ランダム用最大値
+
+    private int seekItem;   //どのアイテムを探すか
 
     // Start is called before the first frame update
     void Start()
@@ -44,14 +54,28 @@ public class EnemyController : MonoBehaviour
         enemyPosition = transform.position;
 
         //Item = serchTag(gameObject, "Item");
+        seekItem = Random.Range(0, random);
         if (Item == null)
-            Item = GameObject.FindWithTag("Item");
+            switch (seekItem)
+            {
+                case 0: //攻撃アイテムを取りに行く
+                    Item = GameObject.FindWithTag("AttackItem");
+                    break;
+                case 1: //防御アイテムを取りに行く
+                    Item = GameObject.FindWithTag("DefenseItem");
+                    break;
+                default:
+                    break;
+            }
 
-        transform.LookAt(Item.transform);
+        else
+        {
+            transform.LookAt(Item.transform);
 
-        enemyPosition += transform.forward * speed * Time.deltaTime;
+            enemyPosition += transform.forward * speed * Time.deltaTime;
 
-        transform.position = enemyPosition;
+            transform.position = enemyPosition;
+        }
     }
 
     //アイテムをとった後の挙動
