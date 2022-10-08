@@ -23,6 +23,7 @@ public class Buttle_Col_Player : MonoBehaviour
 
     }
 
+    //TODO : âÊñ äOÇ…èoÇ»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
     private void OnCollisionEnter2D(Collision2D col) 
     {
         if (col.gameObject.tag == "LeftWall")
