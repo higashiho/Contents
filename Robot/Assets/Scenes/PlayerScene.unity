@@ -801,10 +801,10 @@ MonoBehaviour:
   Item: {fileID: 1261519893445052151, guid: e6a5c44c011188948a3e6287aea7e75e, type: 3}
   home: {fileID: 389892254}
   speed: 7
+  downTime: 2
   lowSpeed: 6
-  downCount: 2
   HaveItem: 0
-  b_damaged: 0
+  b_move_ok: 0
 --- !u!54 &795097574
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1213,7 +1213,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1592447217}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13, y: 0, z: 0}
+  m_LocalPosition: {x: 31.4, y: 0.8, z: -4.3}
   m_LocalScale: {x: 1, y: 5, z: 13}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1492,6 +1492,7 @@ GameObject:
   - component: {fileID: 1968100322}
   - component: {fileID: 1968100321}
   - component: {fileID: 1968100326}
+  - component: {fileID: 1968100327}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1512,8 +1513,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1968100320}
-  speed: 10
-  lowSpeed: 0
+  speed: 7
+  lowSpeed: 6
   HaveItem: 0
 --- !u!65 &1968100322
 BoxCollider:
@@ -1610,6 +1611,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1968100327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968100320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bce1358dd83f6a74bb40af689804c970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playercontroller: {fileID: 1968100321}
+  HaveCount: 0
 --- !u!1 &2086695567
 GameObject:
   m_ObjectHideFlags: 0

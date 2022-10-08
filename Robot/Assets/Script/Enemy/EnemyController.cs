@@ -6,7 +6,7 @@ public class EnemyController : MonoBehaviour
 {
     private enum items      //相手の種類
     {
-        Attack  =0,
+        Attack = 0,
         Defense = 1,
     }
 
@@ -21,12 +21,11 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField]
     private float speed; //自身のスピード
-
-    [SerializeField] 
+    [SerializeField]
+    private float downTime = 2f;
+    [SerializeField]
     private float lowSpeed; //アイテムを持っている状態の自身のスピード
 
-    [SerializeField]
-    private float downCount = 2f;   // エネミーの怯みタイマー
 
     public bool HaveItem = false;   //アイテムを持っているか
 
@@ -34,18 +33,18 @@ public class EnemyController : MonoBehaviour
 
     private int seekItem;   //どのアイテムを探すか
 
-    public bool b_damaged;  // プレイヤーの攻撃をうけたか
-
+    public bool b_move_ok;  // 行動可能かどうか
+   
     // Start is called before the first frame update
     void Start()
     {
-        b_damaged = false;
+        b_move_ok = true;   // 行動可能フラグON
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!b_damaged)
+        if (b_move_ok)
         {
             if (!HaveItem)
                 move();
@@ -53,8 +52,9 @@ public class EnemyController : MonoBehaviour
             if (HaveItem)
                 goAway();
         }
-        else
-            Damaged();
+
+        if (!b_move_ok) // エネミー行動可能フラグOFFのとき
+            StartCoroutine("Damaged");  // ダメージコルーチンに入る
     }
 
     //挙動
@@ -99,17 +99,14 @@ public class EnemyController : MonoBehaviour
         transform.position = enemyPosition;
     }
 
-    private void Damaged()
+    private IEnumerator Damaged()
     {
-        float count = 0;
-        count += Time.deltaTime;
-        if(count >= downCount)
-        {
-            b_damaged = false;
-            count = 0;
-        }
-
+        // 子のアイテムを解除 -> 2秒後アイテムを拾いに行く
+        this.gameObject.transform.DetachChildren();  
+        yield return new WaitForSeconds(downTime);
+        b_move_ok = true;  // エネミー行動可能フラグON
     }
+
     /*
     //近くのオブジェクトを探索して入れる
     private GameObject serchTag(GameObject nowObj, string tagName)
@@ -135,4 +132,5 @@ public class EnemyController : MonoBehaviour
         //最も近かったオブジェクトを返す
         return targetObj;
     }*/
+
 }

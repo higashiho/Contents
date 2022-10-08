@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Col_Item : MonoBehaviour
 {
-
+    [SerializeField]
+    private EnemyController enemycontroller;
     private ItemController itemController;  //カウント変数値増加用
 
     private GameObject itemControl;        // Item生成管理用
@@ -23,8 +24,8 @@ public class Col_Item : MonoBehaviour
         Player = GameObject.Find("Player");
 
         itemController = itemControl.gameObject.GetComponent<ItemController>();
-
-        col_Enemy = Enemy.gameObject.GetComponent<Col_Enemy>();
+        enemycontroller = Enemy.gameObject.GetComponent<EnemyController>();
+        col_Enemy = Enemy.gameObject.GetComponent<Col_Enemy>(); 
         col_Player = Player.gameObject.GetComponent<Col_Player>();
     }
 
