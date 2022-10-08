@@ -119,31 +119,13 @@ public class EnemyController : MonoBehaviour
         navMesh.destination = home.transform.position;
     }
 
-   /* private IEnumerator Damaged()
-    {
-        // 子のアイテムを解除 -> downTime経過後アイテムを拾いに行く
-        this.gameObject.transform.DetachChildren();
-        item = null;
-        yield return new WaitForSeconds(downTime);
-     
-    }*/
-
-    private void Damaged()
-    {
-        navMesh.Stop(true);
-        //navMesh.updateRotation = false;
-
-        StartCoroutine("StopTime");
-        // コルーチンを回す
-    }
-
     private IEnumerator StopTime()
     {
-        navMesh.Stop(true);
-        this.gameObject.transform.DetachChildren();
+        navMesh.isStopped = true;
+        this.gameObject.transform.DetachChildren();  
         //item = null;
         yield return new WaitForSeconds(downTime);
-        navMesh.Resume();
+        navMesh.isStopped = false ;
     } 
 
 }
