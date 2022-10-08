@@ -25,6 +25,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] 
     private float lowSpeed; //アイテムを持っている状態の自身のスピード
 
+    [SerializeField]
+    private float downCount = 2f;   // エネミーの怯みタイマー
 
     public bool HaveItem = false;   //アイテムを持っているか
 
@@ -32,20 +34,27 @@ public class EnemyController : MonoBehaviour
 
     private int seekItem;   //どのアイテムを探すか
 
+    public bool b_damaged;  // プレイヤーの攻撃をうけたか
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        b_damaged = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!HaveItem)
-            move();
+        if (!b_damaged)
+        {
+            if (!HaveItem)
+                move();
 
-        if (HaveItem)
-            goAway();
+            if (HaveItem)
+                goAway();
+        }
+        else
+            Damaged();
     }
 
     //挙動
@@ -88,6 +97,18 @@ public class EnemyController : MonoBehaviour
         enemyPosition += transform.forward * lowSpeed * Time.deltaTime;
 
         transform.position = enemyPosition;
+    }
+
+    private void Damaged()
+    {
+        float count = 0;
+        count += Time.deltaTime;
+        if(count >= downCount)
+        {
+            b_damaged = false;
+            count = 0;
+        }
+
     }
     /*
     //近くのオブジェクトを探索して入れる

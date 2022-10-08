@@ -36,5 +36,13 @@ public class Col_Enemy : MonoBehaviour
             if (HoveCount > 0)
                 HoveCount--;
         }
+        // playerの攻撃を受けたら...
+        if(other.gameObject.tag == "Bat")
+        {
+            enemycontroller.b_damaged = true;  // プレイヤーの攻撃を受けた
+            enemycontroller.HaveItem = false;  // アイテムを取りに行けるようにする
+            if (HoveCount > 0)
+                HoveCount--;
+        }
     }
 }
