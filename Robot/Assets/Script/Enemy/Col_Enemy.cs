@@ -38,5 +38,13 @@ public class Col_Enemy : MonoBehaviour
             if (HaveCount > 0)
                 HaveCount--;
         }
+        // playerの攻撃を受けたら...
+        if(other.gameObject.tag == "Bat")
+        {
+            enemycontroller.b_move_ok = false;  // エネミー行動可能フラグOFF
+            enemycontroller.HaveItem = false;  // アイテムを取りに行けるようにする
+            if (HaveCount > 0)
+                HaveCount--;
+        }
     }
 }
