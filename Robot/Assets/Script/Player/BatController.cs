@@ -7,7 +7,7 @@ public class BatController: MonoBehaviour
     
     void Start()
     {
-        GetComponent<BoxCollider>().enabled = false;
+        GetComponent<BoxCollider>().enabled = false;  //バット当たり判定OFF
     }
 
    
@@ -30,11 +30,11 @@ public class BatController: MonoBehaviour
         if (Input.GetKey("return"))
         {
                 StartCoroutine(RotateX_r());
-            GetComponent<BoxCollider>().enabled = true;
+            GetComponent<BoxCollider>().enabled = true;//バット当たり判定ON
         }
         if (Input.GetKeyUp("return"))
         {
-            GetComponent<BoxCollider>().enabled = false;
+            GetComponent<BoxCollider>().enabled = false;//バット当たり判定OFF
         }
      
     }
