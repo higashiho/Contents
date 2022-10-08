@@ -132,8 +132,10 @@ MonoBehaviour:
   item: {fileID: 0}
   home: {fileID: 0}
   speed: 7
+  downTime: 2
   lowSpeed: 6
   HaveItem: 0
+  b_move_ok: 0
 --- !u!114 &2991015671602450135
 MonoBehaviour:
   m_ObjectHideFlags: 0
