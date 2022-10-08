@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Battle_PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    private float speed; //プレイヤーのスピード
+    public float Speed; //プレイヤーのスピード
 
     private RectTransform rect; //トランスフォーム格納用
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +22,8 @@ public class Battle_PlayerController : MonoBehaviour
     private void move()
     {
         if (Input.GetKey("d"))
-            rect.localPosition += new Vector3(speed * Time.deltaTime, 0, 0);
+            rect.localPosition += new Vector3(Speed, 0, 0);
         if (Input.GetKey("a"))
-            rect.localPosition -= new Vector3(speed * Time.deltaTime, 0, 0);
+            rect.localPosition -= new Vector3(Speed, 0, 0);
     }
 }

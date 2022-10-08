@@ -22,6 +22,11 @@ public class Battl_AttackEnemy : MonoBehaviour
     [SerializeField]
     private int attack = 0;     //çUåÇÇ≈Ç´ÇÈâÒêî
 
+    [SerializeField]
+    private float waitTime = 3.0f;  //ÉRÉãÅ[É`ÉìíxâÑóp
+
+    private bool waitShot = false;  //ë≈Çøé~ÇﬂÇÈ
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,13 +39,22 @@ public class Battl_AttackEnemy : MonoBehaviour
         
     }
 
+    //çUåÇÇ≈Ç´ÇÈÇ©
     public void Attack()
     {
-        if (attack > 0)
+        if (attack > 0 && !waitShot)
         {
-            bulletPrefab = Instantiate(bullet, transform.position, transform.rotation);
-            bulletPrefab.transform.SetParent(Enemy.transform);
-            attack--;
+            waitShot = true;
+            StartCoroutine(waitAttack());
         }
+    }
+    //àÍâÒë≈Ç¡ÇΩÇÁè≠Çµë“Ç¬
+    private IEnumerator waitAttack()
+    {
+        attack--;
+        bulletPrefab = Instantiate(bullet, transform.position, transform.rotation);
+        bulletPrefab.transform.SetParent(Enemy.transform);
+        yield return new WaitForSeconds(waitTime);
+        waitShot = false;
     }
 }

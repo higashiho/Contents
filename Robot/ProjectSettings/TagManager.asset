@@ -11,6 +11,8 @@ TagManager:
   - DefenseItem
   - Bat
   - AttackPoint
+  - LeftWall
+  - RightWall
   layers:
   - Default
   - TransparentFX
