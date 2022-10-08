@@ -10,6 +10,7 @@ TagManager:
   - AttackItem
   - DefenseItem
   - Bat
+  - AttackPoint
   layers:
   - Default
   - TransparentFX

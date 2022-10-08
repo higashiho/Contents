@@ -5,7 +5,7 @@ using UnityEngine;
 public class Battle_PlayerController : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 10.0f; //プレイヤーのスピード
+    private float speed; //プレイヤーのスピード
 
     private RectTransform rect; //トランスフォーム格納用
     // Start is called before the first frame update
