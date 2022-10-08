@@ -43,8 +43,8 @@ public class Col_Enemy : MonoBehaviour
         {
             enemycontroller.b_move_ok = false;  // エネミー行動可能フラグOFF
             enemycontroller.HaveItem = false;  // アイテムを取りに行けるようにする
-            if (HoveCount > 0)
-                HoveCount--;
+            if (HaveCount > 0)
+                HaveCount--;
         }
     }
 }

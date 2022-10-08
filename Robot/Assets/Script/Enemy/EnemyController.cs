@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class EnemyController : MonoBehaviour
 {
     private enum items      //相手の種類
@@ -11,7 +13,7 @@ public class EnemyController : MonoBehaviour
     }
 
     [SerializeField]
-    private GameObject Item;    //取得アイテム
+    private GameObject item;    //取得アイテム
 
     [SerializeField]
     private GameObject home;    //陣地
@@ -26,6 +28,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private float lowSpeed; //アイテムを持っている状態の自身のスピード
 
+    private NavMeshAgent navMesh;   //NavMesh格納用
+
 
     public bool HaveItem = false;   //アイテムを持っているか
 
@@ -39,6 +43,8 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         b_move_ok = true;   // 行動可能フラグON
+
+        navMesh = GetComponent<NavMeshAgent>();     //navMeshを所持
     }
 
     // Update is called once per frame
@@ -64,14 +70,14 @@ public class EnemyController : MonoBehaviour
 
         //Item = serchTag(gameObject, "Item");
         seekItem = Random.Range(0, random);
-        if (Item == null)
+        if (item == null)
             switch (seekItem)
             {
                 case 0: //攻撃アイテムを取りに行く
-                    Item = GameObject.FindWithTag("AttackItem");
+                    item = GameObject.FindWithTag("AttackItem");
                     break;
                 case 1: //防御アイテムを取りに行く
-                    Item = GameObject.FindWithTag("DefenseItem");
+                    item = GameObject.FindWithTag("DefenseItem");
                     break;
                 default:
                     break;
@@ -79,17 +85,20 @@ public class EnemyController : MonoBehaviour
 
         else
         {
+            /*
             transform.LookAt(Item.transform);
 
             enemyPosition += transform.forward * speed * Time.deltaTime;
 
             transform.position = enemyPosition;
-        }
+               */
+            navMesh.destination = item.transform.position;   //アイテムを目指して進む
+            }
     }
 
     //アイテムをとった後の挙動
     private void goAway()
-    {
+    {/*
         enemyPosition = transform.position;
 
         transform.LookAt(home.transform);
@@ -97,40 +106,17 @@ public class EnemyController : MonoBehaviour
         enemyPosition += transform.forward * lowSpeed * Time.deltaTime;
 
         transform.position = enemyPosition;
+        */
+        navMesh.destination = home.transform.position;
     }
 
     private IEnumerator Damaged()
     {
         // 子のアイテムを解除 -> 2秒後アイテムを拾いに行く
-        this.gameObject.transform.DetachChildren();  
+        this.gameObject.transform.DetachChildren();
+        item = null;
         yield return new WaitForSeconds(downTime);
         b_move_ok = true;  // エネミー行動可能フラグON
     }
-
-    /*
-    //近くのオブジェクトを探索して入れる
-    private GameObject serchTag(GameObject nowObj, string tagName)
-    {
-        float tmpDis = 0;   //距離用一次変数
-        float nearDis = 0;  //最も近いオブジェクトの距離
-        GameObject targetObj = default;    //オブジェクト
-
-        //タグ指定されたオブジェクトを配列で取得する
-        foreach (GameObject obs in GameObject.FindGameObjectsWithTag(tagName))
-        {
-            //自身と取得したオブジェクトの距離を取得
-            tmpDis = Vector3.Distance(obs.transform.position, nowObj.transform.position);
-
-            //オブジェクトの距離が近いか、0であればオブジェクトを取得
-            //一次変数に距離を格納
-            if (nearDis == 0 || nearDis > tmpDis)
-            {
-                nearDis = tmpDis;
-                targetObj = obs;
-            }
-        }
-        //最も近かったオブジェクトを返す
-        return targetObj;
-    }*/
 
 }
