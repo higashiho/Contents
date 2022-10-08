@@ -52,6 +52,7 @@ public class EnemyController : MonoBehaviour
     {
         if (b_move_ok)
         {
+           
             if (!HaveItem)
                 move();
 
@@ -59,8 +60,16 @@ public class EnemyController : MonoBehaviour
                 goAway();
         }
 
-        if (!b_move_ok) // エネミー行動可能フラグOFFのとき
-            StartCoroutine("Damaged");  // ダメージコルーチンに入る
+        if (!b_move_ok)
+        { // エネミー行動可能フラグOFFのとき
+          //StartCoroutine("Damaged");  // ダメージコルーチンに入る
+            StartCoroutine("StopTime");
+            //navMesh.updateRotation = true;
+           // navMesh.speed = 7f;
+            HaveItem = false;  // アイテムを取りに行けるようにする
+            b_move_ok = true;  // エネミー行動可能フラグON
+           
+        }
     }
 
     //挙動
@@ -110,13 +119,13 @@ public class EnemyController : MonoBehaviour
         navMesh.destination = home.transform.position;
     }
 
-    private IEnumerator Damaged()
+    private IEnumerator StopTime()
     {
-        // 子のアイテムを解除 -> 2秒後アイテムを拾いに行く
-        this.gameObject.transform.DetachChildren();
-        item = null;
+        navMesh.isStopped = true;
+        this.gameObject.transform.DetachChildren();  
+        //item = null;
         yield return new WaitForSeconds(downTime);
-        b_move_ok = true;  // エネミー行動可能フラグON
-    }
+        navMesh.isStopped = false ;
+    } 
 
 }
