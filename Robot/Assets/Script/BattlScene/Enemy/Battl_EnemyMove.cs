@@ -5,8 +5,7 @@ using UnityEngine;
 public class Battl_EnemyMove : MonoBehaviour
 {
 
-    [SerializeField]
-    private float speed; //プレイヤーのスピード
+    public float Speed; //プレイヤーのスピード
 
     private RectTransform rect; //トランスフォーム格納用
 
@@ -19,14 +18,18 @@ public class Battl_EnemyMove : MonoBehaviour
 
     private bool wait = false;  //停止
     private float waitTime = 5.0f;  //停止時間
+    public float Judges;       //右か左か
 
+
+    private Rigidbody2D rb; //リジッドボディを取得するための変数
     [SerializeField]
-    private float judges;       //右か左か
+    private float upForce; //上方向にかける力
+    public bool IsGround; //着地しているかどうかの判定
     // Start is called before the first frame update
     void Start()
     {
         rect = GetComponent<RectTransform>();
-
+        rb = GetComponent<Rigidbody2D>(); //リジッドボディを取得
     }
 
     // Update is called once per frame
@@ -42,17 +45,24 @@ public class Battl_EnemyMove : MonoBehaviour
 
     private void move()
     {
-        if (judges <= change)
-            rect.localPosition += new Vector3(speed, 0, 0);
+        //右
+        if (Judges >= change)
+            rect.localPosition += new Vector3(Speed, 0, 0);
+        //左
         else
-            rect.localPosition -= new Vector3(speed, 0, 0);
+            rect.localPosition -= new Vector3(Speed, 0, 0);
+    }
+
+    public void junp()
+    {
+        rb.AddForce(new Vector3(0, upForce, 0)); //上に向かって力を加える
     }
 
     //五秒に一回向きを変える
     private IEnumerator waitJudge()
     {
         //０か１か
-        judges = Random.Range(Min, Max);
+        Judges = Random.Range(Min, Max);
         yield return new WaitForSeconds(waitTime);
         wait = false;
     }

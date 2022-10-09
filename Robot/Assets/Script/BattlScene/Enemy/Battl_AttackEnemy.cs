@@ -13,7 +13,7 @@ public class Battl_AttackEnemy : MonoBehaviour
     //private bool one = true;    //ˆê‰ñ‚¾‚¯ˆ—
 
     [SerializeField]
-    private GameObject Enemy;   //“G
+    private GameObject canvas;   //“G
 
 
     private RectTransform rect; //ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€Ši”[—p
@@ -53,7 +53,7 @@ public class Battl_AttackEnemy : MonoBehaviour
     {
         attack--;
         bulletPrefab = Instantiate(bullet, transform.position, transform.rotation);
-        bulletPrefab.transform.SetParent(Enemy.transform);
+        bulletPrefab.transform.SetParent(canvas.transform);
         yield return new WaitForSeconds(waitTime);
         waitShot = false;
     }
