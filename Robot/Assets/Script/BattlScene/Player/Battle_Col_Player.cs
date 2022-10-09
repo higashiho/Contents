@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Buttle_Col_Player : MonoBehaviour
+public class Battle_Col_Player : MonoBehaviour
 {
     [SerializeField]
     private Battl_AttackEnemy battl_AttackEnemy;        //スクリプト格納用
@@ -40,6 +40,7 @@ public class Buttle_Col_Player : MonoBehaviour
         {
             battle_PlayerController.Speed = speed;
             battle_PlayerController.IsGround = true ;
+            battle_PlayerController.OnAttack = true;
         }
     }
     private void OnCollisionExit2D(Collision2D col) 
@@ -58,6 +59,8 @@ public class Buttle_Col_Player : MonoBehaviour
         {
             battle_PlayerController.Speed = junpSoeed;
             battle_PlayerController.IsGround = false;
+            battle_PlayerController.OnAttack = false;
+
         }
     }
 
