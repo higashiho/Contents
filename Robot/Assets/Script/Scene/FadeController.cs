@@ -12,7 +12,7 @@ public class FadeController : MonoBehaviour
     [SerializeField] private Image fadeImage = default;
     private float red, green, blue, alpha;  // 赤, 緑, 青, 透明度
     private string afterScene;
-    //[SerializeField] private SceneController sceneController;
+    [SerializeField] private SceneController sceneController;
 
     // Start is called before the first frame update
     void Start()
@@ -38,13 +38,13 @@ public class FadeController : MonoBehaviour
             if (alpha >= 1) // 透明度が1より大きくなると(fadeImageが完全に表示されて真っ暗になる)
             {
                 isFadeOut = false;
-                //sceneController.SceneMove = true;
+                sceneController.SceneMove = true;
                 SceneManager.LoadScene(afterScene); // 次のシーンに移る
             }
         }
     }
 
-    void fadeInStart(Scene scene, LoadSceneMode mode)   // フェードインが始まる
+    private void fadeInStart(Scene scene, LoadSceneMode mode)   // フェードインが始まる
     {
         isFadeIn = true;
     }
