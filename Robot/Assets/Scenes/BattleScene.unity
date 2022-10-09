@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 8202328983009944777, guid: ba1ee4c7071030f42bfbe3fa32e2c13c, type: 3}
-  Enemy: {fileID: 915653996}
+  canvas: {fileID: 1921909531}
   attack: 10
   waitTime: 5
 --- !u!1 &336052150
@@ -258,6 +258,7 @@ GameObject:
   - component: {fileID: 336052153}
   - component: {fileID: 336052152}
   - component: {fileID: 336052154}
+  - component: {fileID: 336052155}
   m_Layer: 5
   m_Name: LeftWall
   m_TagString: LeftWall
@@ -350,6 +351,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 9.5, y: 1080}
   m_EdgeRadius: 0
+--- !u!50 &336052155
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336052150}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 7
 --- !u!1 &399195607
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,6 +384,7 @@ GameObject:
   - component: {fileID: 399195610}
   - component: {fileID: 399195609}
   - component: {fileID: 399195611}
+  - component: {fileID: 399195612}
   m_Layer: 5
   m_Name: RightWall
   m_TagString: RightWall
@@ -453,6 +476,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 9.5, y: 1080}
   m_EdgeRadius: 0
+--- !u!50 &399195612
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399195607}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 7
 --- !u!1 &821639602
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,6 +651,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 2
+  LeftMeve: 1
+  RightMeve: 1
+  upForce: 1500
+  IsGround: 0
+  junpPoaint: 5
 --- !u!114 &821639612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,6 +685,7 @@ GameObject:
   - component: {fileID: 915653999}
   - component: {fileID: 915653998}
   - component: {fileID: 915654003}
+  - component: {fileID: 915654004}
   m_Layer: 5
   m_Name: Enemy
   m_TagString: Untagged
@@ -775,9 +825,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f468d168f73d2584aa86703b28cc8283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  Speed: 1
   random: 0
-  judges: 0
+  Judges: 0
+  upForce: 100
+  IsGround: 0
+--- !u!114 &915654004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915653996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684efd083a2183c449af7418694dbcc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battl_EnemyMove: {fileID: 915654003}
 --- !u!1 &1510833246
 GameObject:
   m_ObjectHideFlags: 0
@@ -792,7 +857,7 @@ GameObject:
   - component: {fileID: 1510833251}
   m_Layer: 5
   m_Name: Graund
-  m_TagString: Untagged
+  m_TagString: Graund
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

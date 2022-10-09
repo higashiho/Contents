@@ -13,6 +13,7 @@ TagManager:
   - AttackPoint
   - LeftWall
   - RightWall
+  - Graund
   layers:
   - Default
   - TransparentFX

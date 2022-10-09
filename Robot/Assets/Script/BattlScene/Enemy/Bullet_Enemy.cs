@@ -11,13 +11,18 @@ public class Bullet_Enemy : MonoBehaviour
     private GameObject Enemy;   //敵
     private GameObject Player;  //player
 
-    private float speed = 1;   //弾速
+    private float speed = 1.5f;   //弾速
 
 
     private RectTransform rect; //トランスフォーム格納用
 
     private bool Left, Right;   //右か左か
     private bool one = true;    //判断1回用
+
+    private Rigidbody rb; //リジッドボディを取得するための変数
+    public float upForce = 200f; //上方向にかける力
+    private bool isGround; //着地しているかどうかの判定
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +31,7 @@ public class Bullet_Enemy : MonoBehaviour
         Enemy = GameObject.Find("Enemy");
 
         rect = GetComponent<RectTransform>();
+        rb = GetComponent<Rigidbody>(); //リジッドボディを取得
     }
 
     // Update is called once per frame
@@ -51,5 +57,9 @@ public class Bullet_Enemy : MonoBehaviour
         //左の場合
         if(Left)
             rect.localPosition += new Vector3(speed, 0, 0);
+    }
+    public void junp()
+    {
+        rb.AddForce(new Vector3(0, upForce, 0)); //上に向かって力を加える
     }
 }
