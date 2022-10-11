@@ -3,68 +3,89 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class EnemyController : MonoBehaviour
 {
-    private enum items      //ã‚¢ã‚¤ãƒ†ãƒ ã®ç¨®é¡
+    private enum items      //‘Šè‚Ìí—Ş
     {
         Attack = 0,
         Defense = 1,
     }
 
     [SerializeField]
-    private GameObject item;    //ã‚¢ã‚¤ãƒ†ãƒ æ ¼ç´ç”¨
+    private GameObject item;    //æ“¾ƒAƒCƒeƒ€
 
     [SerializeField]
-    private GameObject home;    //æ‹ ç‚¹
+    private GameObject home;    //w’n
 
-    private UnityEngine.AI.NavMeshAgent navMeshAgent;  //NavMeshæ ¼ç´ç”¨
-    private Vector3 enemyPosition;  //è‡ªèº«ã®ä½ç½®
+    private Vector3 enemyPosition;  //©•ª‚ÌˆÊ’u
 
 
     [SerializeField]
-    private float speed; //è‡ªèº«ã®ã‚¹ãƒ”ãƒ¼ãƒ‰
-
+    private float speed; //©g‚ÌƒXƒs[ƒh
     [SerializeField]
-    private float lowSpeed; //ã‚¢ã‚¤ãƒ†ãƒ ã‚’æŒã£ãŸæ™‚ã®ã‚¹ãƒ”ãƒ¼ãƒ‰
+    private float downTime = 2f;
+    [SerializeField]
+    private float lowSpeed; //ƒAƒCƒeƒ€‚ğ‚Á‚Ä‚¢‚éó‘Ô‚Ì©g‚ÌƒXƒs[ƒh
+
+    private NavMeshAgent navMesh;   //NavMeshŠi”[—p
 
 
-    public bool HaveItem = false;   //ã‚¢ã‚¤ãƒ†ãƒ ã‚’æŒã£ã¦ã„ã‚‹ã‹
+    public bool HaveItem = false;   //ƒAƒCƒeƒ€‚ğ‚Á‚Ä‚¢‚é‚©
 
-    private int random = 2;     //ãƒ©ãƒ³ãƒ€ãƒ ã®æœ€å¤§å€¤
+    private int random = 2;     //ƒ‰ƒ“ƒ_ƒ€—pÅ‘å’l
 
-    private int seekItem;   //ã‚¢ã‚¤ãƒ†ãƒ ã‚’æŒã£ã¦ã„ã‚‹ã‹
+    private int seekItem;   //‚Ç‚ÌƒAƒCƒeƒ€‚ğ’T‚·‚©
 
+    public bool b_move_ok;  // s“®‰Â”\‚©‚Ç‚¤‚©
+   
     // Start is called before the first frame update
     void Start()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        b_move_ok = true;   // s“®‰Â”\ƒtƒ‰ƒOON
+
+        navMesh = GetComponent<NavMeshAgent>();     //navMesh‚ğŠ
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!HaveItem)
-            move();
+        if (b_move_ok)
+        {
+           
+            if (!HaveItem)
+                move();
 
-        if (HaveItem)
-            goAway();
+            if (HaveItem)
+                goAway();
+        }
+
+        if (!b_move_ok)
+        { // ƒGƒlƒ~[s“®‰Â”\ƒtƒ‰ƒOOFF‚Ì‚Æ‚«
+          //StartCoroutine("Damaged");  // ƒ_ƒ[ƒWƒRƒ‹[ƒ`ƒ“‚É“ü‚é
+            StartCoroutine("StopTime");
+            //navMesh.updateRotation = true;
+           // navMesh.speed = 7f;
+            HaveItem = false;  // ƒAƒCƒeƒ€‚ğæ‚è‚És‚¯‚é‚æ‚¤‚É‚·‚é
+            b_move_ok = true;  // ƒGƒlƒ~[s“®‰Â”\ƒtƒ‰ƒOON
+           
+        }
     }
 
-    //æ‹ ç‚¹
+    //‹““®
     private void move()
     {
-        //enemyPosition = transform.position;
+        enemyPosition = transform.position;
 
         //Item = serchTag(gameObject, "Item");
         seekItem = Random.Range(0, random);
         if (item == null)
             switch (seekItem)
             {
-                case 0: //æ”»æ’ƒã‚¢ã‚¤ãƒ†ãƒ ã‚’å–ã‚Šã«è¡Œã
+                case 0: //UŒ‚ƒAƒCƒeƒ€‚ğæ‚è‚És‚­
                     item = GameObject.FindWithTag("AttackItem");
                     break;
-                case 1: //é˜²å¾¡ã‚¢ã‚¤ãƒ†ãƒ ã‚’å–ã‚Šã«è¡Œã
+                case 1: //–hŒäƒAƒCƒeƒ€‚ğæ‚è‚És‚­
                     item = GameObject.FindWithTag("DefenseItem");
                     break;
                 default:
@@ -73,21 +94,20 @@ public class EnemyController : MonoBehaviour
 
         else
         {
-            /*transform.LookAt(Item.transform);
+            /*
+            transform.LookAt(Item.transform);
 
             enemyPosition += transform.forward * speed * Time.deltaTime;
 
             transform.position = enemyPosition;
-            */
-
-            navMeshAgent.destination = item.transform.position;
-        }
+               */
+            navMesh.destination = item.transform.position;   //ƒAƒCƒeƒ€‚ğ–Úw‚µ‚Äi‚Ş
+            }
     }
 
-    //æ‹ ç‚¹ã«æˆ»ã‚‹
+    //ƒAƒCƒeƒ€‚ğ‚Æ‚Á‚½Œã‚Ì‹““®
     private void goAway()
-    {
-        /*
+    {/*
         enemyPosition = transform.position;
 
         transform.LookAt(home.transform);
@@ -96,6 +116,16 @@ public class EnemyController : MonoBehaviour
 
         transform.position = enemyPosition;
         */
-        navMeshAgent.destination = home.transform.position;
+        navMesh.destination = home.transform.position;
     }
+
+    private IEnumerator StopTime()
+    {
+        navMesh.isStopped = true;
+        this.gameObject.transform.DetachChildren();  
+        //item = null;
+        yield return new WaitForSeconds(downTime);
+        navMesh.isStopped = false ;
+    } 
+
 }

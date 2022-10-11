@@ -6,6 +6,8 @@ public class Col_Enemy : MonoBehaviour
 {
     [SerializeField]
     private EnemyController enemycontroller;
+    [SerializeField]
+    private DumpItem dumpScript;  // DumpItemスクリプト参照用
 
     public int HaveCount = 0;   //持ってる個数
     private int maxHaveCount = 1;    //カウントが増える最大値
@@ -35,6 +37,17 @@ public class Col_Enemy : MonoBehaviour
         if (other.gameObject.tag == "Home")
         {
             enemycontroller.HaveItem = false;
+            if (HaveCount > 0)
+                HaveCount--;
+        }
+        // playerの攻撃を受けたら...
+        if(other.gameObject.tag == "Bat")
+        {
+            // TODO namespaceが取れない要修正
+            //dumpScript = other.GetComponent<DumpScript>();
+            //dumpScript.b_flash = true;
+            enemycontroller.b_move_ok = false;  // エネミー行動可能フラグOFF
+           // enemycontroller.HaveItem = false;  // アイテムを取りに行けるようにする
             if (HaveCount > 0)
                 HaveCount--;
         }
