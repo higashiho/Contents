@@ -10,6 +10,12 @@ TagManager:
   - AttackItem
   - DefenseItem
   - Bat
+  - AttackPoint
+  - LeftWall
+  - RightWall
+  - Graund
+  - PlayerBullet
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX

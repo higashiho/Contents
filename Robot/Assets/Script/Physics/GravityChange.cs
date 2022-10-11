@@ -5,12 +5,11 @@ using UnityEngine;
 public class GravityChange : MonoBehaviour
 {
     [SerializeField] private Vector3 localGrabity;  //重力係数
-    private Rigidbody rb;   //リジッドボディ格納用
+    private Rigidbody2D rb;   //リジッドボディ格納用
     // Start is called before the first frame update
     void Start()
     {
-        rb = this.GetComponent<Rigidbody>();
-        rb.useGravity = false;  //リジッドボディの重力をなくす
+        rb = this.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -22,6 +21,6 @@ public class GravityChange : MonoBehaviour
     //重力をAddForceでかける
     private void SetLocalGravity()
     {
-        rb.AddForce(localGrabity, ForceMode.Acceleration);
+        rb.AddForce(localGrabity);
     }
 }
