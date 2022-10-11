@@ -14,6 +14,8 @@ TagManager:
   - LeftWall
   - RightWall
   - Graund
+  - PlayerBullet
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX

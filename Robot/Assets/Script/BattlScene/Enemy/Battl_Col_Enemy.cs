@@ -5,7 +5,7 @@ using UnityEngine;
 public class Battl_Col_Enemy : MonoBehaviour
 {
     [SerializeField]
-    private Battl_EnemyMove battl_EnemyMove;        //スクリプト格納用
+    private Battl_EnemyController battl_EnemyController;        //スクリプト格納用
 
 
     private float speed = 1.0f; //着地時スピード
@@ -27,25 +27,25 @@ public class Battl_Col_Enemy : MonoBehaviour
     {
         if (col.gameObject.tag == "LeftWall")
         {
-            battl_EnemyMove.Judges = rightMove;
+            battl_EnemyController.Judges = rightMove;
         }
         if (col.gameObject.tag == "RightWall")
         {
-            battl_EnemyMove.Judges = leftMove;
+            battl_EnemyController.Judges = leftMove;
         }
 
         if (col.gameObject.tag == "Graund")
         {
-            battl_EnemyMove.Speed = speed;
-            battl_EnemyMove.IsGround = true;
+            battl_EnemyController.Speed = speed;
+            battl_EnemyController.IsGround = true;
         }
     }
     private void OnCollisionExit2D(Collision2D col)
     {
         if (col.gameObject.tag == "Graund")
         {
-            battl_EnemyMove.Speed = junpSoeed;
-            battl_EnemyMove.IsGround = false;
+            battl_EnemyController.Speed = junpSoeed;
+            battl_EnemyController.IsGround = false;
         }
     }
 

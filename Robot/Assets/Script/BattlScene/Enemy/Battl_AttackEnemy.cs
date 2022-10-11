@@ -18,9 +18,8 @@ public class Battl_AttackEnemy : MonoBehaviour
 
     private RectTransform rect; //トランスフォーム格納用
 
-
     [SerializeField]
-    private int attack = 0;     //攻撃できる回数
+    private Battl_EnemyController battl_EnemyController;    //スクリプト格納用
 
     [SerializeField]
     private float waitTime = 3.0f;  //コルーチン遅延用
@@ -42,7 +41,7 @@ public class Battl_AttackEnemy : MonoBehaviour
     //攻撃できるか
     public void Attack()
     {
-        if (attack > 0 && !waitShot)
+        if (battl_EnemyController.AttackPoint > 0 && !waitShot)
         {
             waitShot = true;
             StartCoroutine(waitAttack());
@@ -51,7 +50,7 @@ public class Battl_AttackEnemy : MonoBehaviour
     //一回打ったら少し待つ
     private IEnumerator waitAttack()
     {
-        attack--;
+        battl_EnemyController.AttackPoint--;
         bulletPrefab = Instantiate(bullet, transform.position, transform.rotation);
         bulletPrefab.transform.SetParent(canvas.transform);
         yield return new WaitForSeconds(waitTime);
