@@ -12,7 +12,7 @@ public class FadeController : MonoBehaviour
     [SerializeField] private Image fadeImage = default;
     private float red, green, blue, alpha;  // Ô, —Î, Â, “§–¾“x
     private string afterScene;
-    [SerializeField] private SceneController sceneController;
+    public SceneController sceneController;
 
     // Start is called before the first frame update
     void Start()
