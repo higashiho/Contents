@@ -6,8 +6,7 @@ public class Col_Enemy : MonoBehaviour
 {
     [SerializeField]
     private EnemyController enemycontroller;
-    [SerializeField]
-    private EnemyFlash enemyflash;
+
     public int HaveCount = 0;   //持ってる個数
     private int maxHaveCount = 1;    //カウントが増える最大値
     private bool isHit;         // プレイヤーの攻撃を受けているか
@@ -49,14 +48,18 @@ public class Col_Enemy : MonoBehaviour
         // playerの攻撃を受けたら...
         if(other.gameObject.tag == "Bat")
         {
-            if (isHit)
-                return;
-            else
-                StartCoroutine(Hit());
             enemycontroller.b_move_ok = false;  // エネミー行動可能フラグOFF
             enemycontroller.HaveItem = false;   // アイテム所持フラグOFF
             if (HaveCount > 0)
                 HaveCount--;
+            if (isHit)
+                return;
+            else
+                StartCoroutine(Hit());
+           // enemycontroller.b_move_ok = false;  // エネミー行動可能フラグOFF
+            //enemycontroller.HaveItem = false;   // アイテム所持フラグOFF
+            //if (HaveCount > 0)
+             //   HaveCount--;
         }
     }
 

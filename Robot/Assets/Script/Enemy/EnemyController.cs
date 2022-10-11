@@ -27,6 +27,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private float lowSpeed; //アイテムを持っている状態の自身のスピード
 
+    [SerializeField]
+    private float downTime = 2f;  // エネミー被攻撃後行動不可時間
+
     private NavMeshAgent navMesh;   //NavMesh格納用
 
 
@@ -62,11 +65,11 @@ public class EnemyController : MonoBehaviour
         }
 
         if (!b_move_ok && HaveItem)     // 行動可能フラグOFF かつ アイテムを持っているとき
-        { 
-            
-           
-            HaveItem = false;  // アイテムを取りに行けるようにする
-            b_move_ok = true;  // エネミー行動可能フラグON
+        {
+
+            StartCoroutine("StopTime");
+          //  HaveItem = false;  // アイテムを取りに行けるようにする
+          //  b_move_ok = true;  // エネミー行動可能フラグON
         }
     }
 
@@ -115,6 +118,16 @@ public class EnemyController : MonoBehaviour
         transform.position = enemyPosition;
         */
         navMesh.destination = home.transform.position;
+    }
+
+    private IEnumerator StopTime()
+    {
+        navMesh.isStopped = true;
+        yield return new WaitForSeconds(downTime);
+        this.gameObject.transform.DetachChildren();
+        HaveItem = false;  // アイテムを取りに行けるようにする
+        b_move_ok = true;  // エネミー行動可能フラグON
+        navMesh.isStopped = false;
     }
 
    
