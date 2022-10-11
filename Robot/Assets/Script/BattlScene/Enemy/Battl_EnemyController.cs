@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Battl_EnemyMove : MonoBehaviour
+public class Battl_EnemyController : MonoBehaviour
 {
 
     public float Speed; //プレイヤーのスピード
@@ -25,6 +25,10 @@ public class Battl_EnemyMove : MonoBehaviour
     [SerializeField]
     private float upForce; //上方向にかける力
     public bool IsGround; //着地しているかどうかの判定
+
+    public int AttackPoint; //攻撃できる回数
+    public int DefensePoint;    //被弾に当たれる回数
+    public int JunpPoint;   //ジャンプできる回数
     // Start is called before the first frame update
     void Start()
     {
