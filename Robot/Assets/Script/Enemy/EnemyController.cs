@@ -23,8 +23,7 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField]
     private float speed; //自身のスピード
-    [SerializeField]
-    private float downTime = 2f;
+ 
     [SerializeField]
     private float lowSpeed; //アイテムを持っている状態の自身のスピード
 
@@ -38,6 +37,8 @@ public class EnemyController : MonoBehaviour
     private int seekItem;   //どのアイテムを探すか
 
     public bool b_move_ok;  // 行動可能かどうか
+
+    
    
     // Start is called before the first frame update
     void Start()
@@ -50,25 +51,22 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (b_move_ok)
+        if (b_move_ok)      // 行動可能フラグONの時
         {
            
-            if (!HaveItem)
-                move();
+            if (!HaveItem)  // アイテムを持っていないとき
+                move();     // アイテムを取りに行く
 
-            if (HaveItem)
-                goAway();
+            if (HaveItem)   // アイテムを持っている時
+                goAway();   // アイテムを自陣に持って帰る
         }
 
-        if (!b_move_ok)
-        { // エネミー行動可能フラグOFFのとき
-          //StartCoroutine("Damaged");  // ダメージコルーチンに入る
-            StartCoroutine("StopTime");
-            //navMesh.updateRotation = true;
-           // navMesh.speed = 7f;
+        if (!b_move_ok && HaveItem)     // 行動可能フラグOFF かつ アイテムを持っているとき
+        { 
+            
+           
             HaveItem = false;  // アイテムを取りに行けるようにする
             b_move_ok = true;  // エネミー行動可能フラグON
-           
         }
     }
 
@@ -119,13 +117,5 @@ public class EnemyController : MonoBehaviour
         navMesh.destination = home.transform.position;
     }
 
-    private IEnumerator StopTime()
-    {
-        navMesh.isStopped = true;
-        this.gameObject.transform.DetachChildren();  
-        //item = null;
-        yield return new WaitForSeconds(downTime);
-        navMesh.isStopped = false ;
-    } 
-
+   
 }
