@@ -50,7 +50,7 @@ public class Battl_AttackEnemy : MonoBehaviour
     //ˆê‰ñ‘Å‚Á‚½‚ç­‚µ‘Ò‚Â
     private IEnumerator waitAttack()
     {
-        battl_EnemyController.AttackPoint--;
+        //battl_EnemyController.AttackPoint--;
         bulletPrefab = Instantiate(bullet, transform.position, transform.rotation);
         bulletPrefab.transform.SetParent(canvas.transform);
         yield return new WaitForSeconds(waitTime);

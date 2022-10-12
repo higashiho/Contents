@@ -17,9 +17,11 @@ public class Battle_PlayerController : MonoBehaviour
     public bool IsGround; //着地しているかどうかの判定
 
 
-    public int JunpPoint;    //ジャンプできる回数
-    public int AttackPoint;    //Attackできる回数
-    public int DefensePoint;    //被弾できる回数
+    //public int JunpPoint;    //
+    public int AttackPoint;    //攻撃力
+    public int DefensePoint;    //防御力
+
+    public int Hp = 10; //ヒットポイント
 
 
 
@@ -58,11 +60,10 @@ public class Battle_PlayerController : MonoBehaviour
         if (Input.GetKey("a") && LeftMeve)
             rect.localPosition -= new Vector3(Speed, 0, 0);
 
-        if (Input.GetKeyDown("space") && JunpPoint > 0
-            && IsGround)
+        if (Input.GetKeyDown("space") && IsGround)
         {
             rb.AddForce(new Vector3(0, upForce, 0)); //上に向かって力を加える
-            JunpPoint--;
+            //JunpPoint--;
         }
     }
 
@@ -70,6 +71,6 @@ public class Battle_PlayerController : MonoBehaviour
     {
         bulletPrefab = Instantiate(bullet, transform.position, transform.rotation);
         bulletPrefab.transform.SetParent(canvas.transform);
-        AttackPoint--;
+        //AttackPoint--;
     }
 }
