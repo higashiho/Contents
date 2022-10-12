@@ -10,6 +10,8 @@ public class Status_Enemy : MonoBehaviour
     private int jump = 0;
     [SerializeField]
     private int statusUp = 1;
+    [SerializeField]
+    private int defenceUp = 1;
 
     [SerializeField]
     private UI_Attack_Enemy ui_Attack_Enemy;
@@ -24,18 +26,16 @@ public class Status_Enemy : MonoBehaviour
     {
         
     }
-
+    //ステータスアップのUI
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "AttackItem")
         {
             Attack += statusUp;
-            ui_Attack_Enemy.DefaultStatus += statusUp;
         }
         if (other.gameObject.tag == "DefenseItem")
         {
             Defense += statusUp;
-            ui_Attack_Enemy.DefaultStatus += statusUp;
         }
     }
 }
