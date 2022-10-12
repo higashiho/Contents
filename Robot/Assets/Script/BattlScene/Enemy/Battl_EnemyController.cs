@@ -21,19 +21,13 @@ public class Battl_EnemyController : MonoBehaviour
     public float Judges;       //右か左か
 
 
-    private Rigidbody2D rb; //リジッドボディを取得するための変数
-    [SerializeField]
-    private float upForce; //上方向にかける力
-    public bool IsGround; //着地しているかどうかの判定
-
-    public int AttackPoint; //攻撃できる回数
-    public int DefensePoint;    //被弾に当たれる回数
-    public int JunpPoint;   //ジャンプできる回数
+    public int AttackPoint; //攻撃力
+    public int DefensePoint;    //防御力
+    public int Hp;   //ヒットポイント
     // Start is called before the first frame update
     void Start()
     {
         rect = GetComponent<RectTransform>();
-        rb = GetComponent<Rigidbody2D>(); //リジッドボディを取得
     }
 
     // Update is called once per frame
@@ -57,10 +51,7 @@ public class Battl_EnemyController : MonoBehaviour
             rect.localPosition -= new Vector3(Speed, 0, 0);
     }
 
-    public void Junp()
-    {
-        rb.AddForce(new Vector3(0, upForce, 0)); //上に向かって力を加える
-    }
+   
 
     //五秒に一回向きを変える
     private IEnumerator waitJudge()

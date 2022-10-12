@@ -8,6 +8,8 @@ public class ButtonCintrolelr : MonoBehaviour
     private Battle_PlayerController battle_PlayerController;    //スクリプト格納用
     [SerializeField] 
     private Battl_EnemyController battl_EnemyController;    //スクリプト格納用
+    [SerializeField] 
+    private TextController textController;    //スクリプト格納用
     // Start is called before the first frame update
     void Start()
     {
@@ -32,9 +34,10 @@ public class ButtonCintrolelr : MonoBehaviour
         battle_PlayerController.DefensePoint++;
     }
     //ジャンプ回数加算
-    public void JunpUpButton()
+    public void HpUpButton()
     {
-        battl_EnemyController.JunpPoint++;
-        battle_PlayerController.JunpPoint++;
+        battl_EnemyController.Hp++;
+        battle_PlayerController.Hp++;
+        textController.OneMaxValue = true;
     }
 }

@@ -13,6 +13,11 @@ public class Battle_Col_Player : MonoBehaviour
 
     private float speed = 2.0f; //着地時スピード
     private float junpSoeed = 1.0f; //ジャンプ時スピード
+
+    [SerializeField]
+    private Battl_EnemyController battl_EnemyController;        //スクリプト格納用
+
+    private int Damege = 1;  //固定ダメージ
     // Start is called before the first frame update
     void Start()
     {
@@ -68,7 +73,10 @@ public class Battle_Col_Player : MonoBehaviour
     {
         if (other.gameObject.tag == "EnemyBullet")
         {
-            battle_PlayerController.DefensePoint--;
+            battle_PlayerController.Hp-= Damege;
+            //敵の攻撃力がこちらのディフェンスより高い場合
+            if (battle_PlayerController.DefensePoint <= battl_EnemyController.AttackPoint)
+                battle_PlayerController.Hp -= battl_EnemyController.AttackPoint - battle_PlayerController.DefensePoint;
         }
     }
 
