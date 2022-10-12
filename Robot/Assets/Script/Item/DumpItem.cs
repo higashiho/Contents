@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class DumpItem : MonoBehaviour
 {
-    // 点滅させるオブジェクトアタッチ用
-    [SerializeField]
-    private SpriteRenderer target;
-    // 点滅周期
-    [SerializeField]
-    private float cycle = 1f;
 
-    private float time;  // 時刻格納用
-    public bool b_flash;  // 点滅フラグ
-    
+    [SerializeField]
+    private SpriteRenderer sprite;
+    public bool b_flash;
+
     void Start()
     {
         b_flash = false;
@@ -23,16 +18,20 @@ public class DumpItem : MonoBehaviour
     void Update()
     {
         if (b_flash)
-            flash();
+            Flash();
     }
-
-    private void flash() // 点滅関数
+    private void Flash()
     {
-        time += Time.deltaTime;           
-        var repeatval = Mathf.Repeat(time, cycle);
-
-        var color = target.color;
-        color.a = repeatval >= cycle * 0.5 ? 1 : 0;
-        target.color = color;
+        float level = Mathf.Abs(Mathf.Sin(Time.time * 10));
+        sprite.color = new Color(1f, 1f, 1f, level);
     }
+    private IEnumerator OnDamage()
+    {
+        yield return new WaitForSeconds(3.0f);
+
+        sprite.color = new Color(1f, 1f, 1f, 1f);
+        b_flash = false;
+    }
+
+   
 }
