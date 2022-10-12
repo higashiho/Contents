@@ -57,7 +57,7 @@ public class Battl_EnemyController : MonoBehaviour
             rect.localPosition -= new Vector3(Speed, 0, 0);
     }
 
-    public void junp()
+    public void Junp()
     {
         rb.AddForce(new Vector3(0, upForce, 0)); //ã‚ÉŒü‚©‚Á‚Ä—Í‚ğ‰Á‚¦‚é
     }

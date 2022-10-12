@@ -374,6 +374,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dde8340aea904ed44967dd58b50b312b, type: 3}
+--- !u!1 &310607148 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2991015671602450120, guid: fe5fa410255cf49438eebbc7453585ef, type: 3}
+  m_PrefabInstance: {fileID: 2991015669785679588}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &310607157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310607148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10bd16bc5df6304f9f13ffad6c522fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!23 &310607163 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2991015671602450132, guid: fe5fa410255cf49438eebbc7453585ef, type: 3}
+  m_PrefabInstance: {fileID: 2991015669785679588}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &379343601
 GameObject:
   m_ObjectHideFlags: 0
@@ -1244,6 +1266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: 0
   defense: 0
+  jump: 0
   statusUp: 1
 --- !u!1 &1370594907
 GameObject:
@@ -1608,6 +1631,10 @@ PrefabInstance:
       propertyPath: home
       value: 
       objectReference: {fileID: 1345762443}
+    - target: {fileID: 2991015671602450132, guid: fe5fa410255cf49438eebbc7453585ef, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ded8c0d67f2502c4ab8c3980231d531b, type: 2}
     - target: {fileID: 2991015671602450134, guid: fe5fa410255cf49438eebbc7453585ef, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1652,5 +1679,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2991015671602450135, guid: fe5fa410255cf49438eebbc7453585ef, type: 3}
+      propertyPath: sprite
+      value: 
+      objectReference: {fileID: 310607163}
+    - target: {fileID: 2991015671602450135, guid: fe5fa410255cf49438eebbc7453585ef, type: 3}
+      propertyPath: enemyflash
+      value: 
+      objectReference: {fileID: 310607157}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe5fa410255cf49438eebbc7453585ef, type: 3}

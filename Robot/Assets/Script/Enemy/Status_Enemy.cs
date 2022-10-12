@@ -9,6 +9,8 @@ public class Status_Enemy : MonoBehaviour
     [SerializeField]
     private int defense = 0;
     [SerializeField]
+    private int jump = 0;
+    [SerializeField]
     private int statusUp = 1;
     // Start is called before the first frame update
     void Start()
