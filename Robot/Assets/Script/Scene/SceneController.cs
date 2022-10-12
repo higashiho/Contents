@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    [SerializeField] private FadeController fadeController;
-    [SerializeField] private GameObject FadeObject;
-    public bool SceneMove = true;
+    [SerializeField] private FadeController fadeController; //スクリプト格納用
+    [SerializeField] private GameObject FadeObject; //スクリプト格納用
+    public bool SceneMove = true;   //連打防止
 
 
     // Start is called before the first frame update
