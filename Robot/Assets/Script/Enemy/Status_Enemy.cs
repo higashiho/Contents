@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Status_Enemy : MonoBehaviour
 {
-    [SerializeField]
-    private int attack = 0;
-    [SerializeField]
-    private int defense = 0;
+    public int Attack = 0;
+    public int Defense = 0;
     [SerializeField]
     private int jump = 0;
     [SerializeField]
     private int statusUp = 1;
+    [SerializeField]
+    private int defenceUp = 1;
+
+    [SerializeField]
+    private UI_Attack_Enemy ui_Attack_Enemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,16 +26,16 @@ public class Status_Enemy : MonoBehaviour
     {
         
     }
-
+    //ステータスアップのUI
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "AttackItem" )
+        if (other.gameObject.tag == "AttackItem")
         {
-            attack += statusUp;
+            Attack += statusUp;
         }
-        if(other.gameObject.tag == "DefenseItem")
+        if (other.gameObject.tag == "DefenseItem")
         {
-            defense += statusUp;
+            Defense += statusUp;
         }
     }
 }
