@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ded8c0d67f2502c4ab8c3980231d531b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -132,8 +132,8 @@ MonoBehaviour:
   item: {fileID: 0}
   home: {fileID: 0}
   speed: 7
-  downTime: 2
   lowSpeed: 6
+  downTime: 2
   HaveItem: 0
   b_move_ok: 0
 --- !u!114 &2991015671602450135
@@ -150,6 +150,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemycontroller: {fileID: 2991015671602450121}
   HaveCount: 0
+  loopCount: 4
+  flashInterval: 0.5
+  sprite: {fileID: 2991015671602450132}
 --- !u!195 &2991015671602450128
 NavMeshAgent:
   m_ObjectHideFlags: 0
