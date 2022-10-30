@@ -6,27 +6,27 @@ using UnityEngine.UI;
 public class TextController : MonoBehaviour
 {
     [SerializeField]
-    private Battle_PlayerController battle_PlayerController;    //ƒXƒNƒŠƒvƒgŠi”[—p
+    private Battle_PlayerController battle_PlayerController;    //ã‚¹ã‚¯ãƒªãƒ—ãƒˆæ ¼ç´ç”¨
 
     [SerializeField]
-    private Battl_EnemyController battl_EnemyController;    //ƒXƒNƒŠƒvƒgŠi”[—p
+    private Battl_EnemyController battl_EnemyController;    //ã‚¹ã‚¯ãƒªãƒ—ãƒˆæ ¼ç´ç”¨
 
     [SerializeField]
-    private Text playerAttackText = default; //playerƒAƒ^ƒbƒNƒeƒLƒXƒg
+    private Text playerAttackText = default; //playerã‚¢ã‚¿ãƒƒã‚¯ãƒ†ã‚­ã‚¹ãƒˆ
     [SerializeField]
-    private Text playerDefenseText = default; //playerƒfƒBƒtƒFƒ“ƒXƒeƒLƒXƒg
+    private Text playerDefenseText = default; //playerãƒ‡ã‚£ãƒ•ã‚§ãƒ³ã‚¹ãƒ†ã‚­ã‚¹ãƒˆ
     [SerializeField]
-    private Text enemyAttackText = default; //enemyƒAƒ^ƒbƒNƒeƒLƒXƒg
+    private Text enemyAttackText = default; //enemyã‚¢ã‚¿ãƒƒã‚¯ãƒ†ã‚­ã‚¹ãƒˆ
     [SerializeField]
-    private Text enemyDefenseText = default; //enemyƒfƒBƒtƒFƒ“ƒXƒeƒLƒXƒg
+    private Text enemyDefenseText = default; //enemyãƒ‡ã‚£ãƒ•ã‚§ãƒ³ã‚¹ãƒ†ã‚­ã‚¹ãƒˆ
 
     [SerializeField]
-    private Slider playerHpSlider;    //playerHpƒXƒ‰ƒCƒ_[
+    private Slider playerHpSlider;    //playerHpã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼
 
     [SerializeField]
-    private Slider enemyHpSlider;   //EnemyHpƒXƒ‰ƒCƒ_[
+    private Slider enemyHpSlider;   //EnemyHpã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼
 
-    public bool OneMaxValue = true;   //ƒXƒ‰ƒCƒ_[ƒ}ƒbƒNƒXƒoƒŠƒ…[ƒAƒ^ƒbƒ`—p
+    public bool OneMaxValue = true;   //ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ãƒãƒƒã‚¯ã‚¹ãƒãƒªãƒ¥ãƒ¼ã‚¢ã‚¿ãƒƒãƒç”¨
     // Start is called before the first frame update
     void Start()
     {
@@ -39,17 +39,17 @@ public class TextController : MonoBehaviour
         statusSlider();
     }
 
-    //Status•\¦
+    //Statusè¡¨ç¤º
     private void statusText()
     {
-        playerAttackText.text = "Attack ~ " + battle_PlayerController.AttackPoint;
-        playerDefenseText.text = "Defense ~ " + battle_PlayerController.DefensePoint;
+        playerAttackText.text = "Attack Ã— " + battle_PlayerController.AttackPoint;
+        playerDefenseText.text = "Defense Ã— " + battle_PlayerController.DefensePoint;
 
-        enemyAttackText.text = "Attack ~ " + battl_EnemyController.AttackPoint;
-        enemyDefenseText.text = "Defense ~ " + battl_EnemyController.DefensePoint;
+        enemyAttackText.text = "Attack Ã— " + battl_EnemyController.AttackPoint;
+        enemyDefenseText.text = "Defense Ã— " + battl_EnemyController.DefensePoint;
     }
 
-    //ƒXƒ‰ƒCƒ_[•\¦
+    //ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼è¡¨ç¤º
     private void statusSlider()
     {
         if (OneMaxValue)
@@ -60,6 +60,13 @@ public class TextController : MonoBehaviour
         playerHpSlider.value = battle_PlayerController.Hp;
         enemyHpSlider.value = battl_EnemyController.Hp;
         OneMaxValue = false;
+    }
+
+    public void statusSliderUpdate()
+    {
+        enemyHpSlider.maxValue = battl_EnemyController.Hp;
+        enemyHpSlider.value = battl_EnemyController.Hp;
+
     }
 
 }

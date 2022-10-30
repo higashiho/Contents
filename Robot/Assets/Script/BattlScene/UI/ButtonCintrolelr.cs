@@ -5,11 +5,11 @@ using UnityEngine;
 public class ButtonCintrolelr : MonoBehaviour
 {
     [SerializeField]
-    private Battle_PlayerController battle_PlayerController;    //ƒXƒNƒŠƒvƒgŠi”[—p
+    private Battle_PlayerController battle_PlayerController;    //ã‚¹ã‚¯ãƒªãƒ—ãƒˆæ ¼ç´ç”¨
     [SerializeField] 
-    private Battl_EnemyController battl_EnemyController;    //ƒXƒNƒŠƒvƒgŠi”[—p
+    private Battl_EnemyController battl_EnemyController;    //ã‚¹ã‚¯ãƒªãƒ—ãƒˆæ ¼ç´ç”¨
     [SerializeField] 
-    private TextController textController;    //ƒXƒNƒŠƒvƒgŠi”[—p
+    private TextController textController;    //ã‚¹ã‚¯ãƒªãƒ—ãƒˆæ ¼ç´ç”¨
     // Start is called before the first frame update
     void Start()
     {
@@ -21,19 +21,19 @@ public class ButtonCintrolelr : MonoBehaviour
     {
         
     }
-    //UŒ‚‰ñ”‰ÁZ
+    //æ”»æ’ƒå›æ•°åŠ ç®—
     public void AttackUpButton()
     {
         battl_EnemyController.AttackPoint++;
         battle_PlayerController.AttackPoint++;
     }
-    //”í’e‰ñ”‰ÁZ
+    //è¢«å¼¾å›æ•°åŠ ç®—
     public void DefenseUpButton()
     {
         battl_EnemyController.DefensePoint++;
         battle_PlayerController.DefensePoint++;
     }
-    //ƒWƒƒƒ“ƒv‰ñ”‰ÁZ
+    //HpåŠ ç®—
     public void HpUpButton()
     {
         battl_EnemyController.Hp++;
