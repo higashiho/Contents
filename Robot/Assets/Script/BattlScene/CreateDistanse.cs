@@ -13,7 +13,7 @@ public class CreateDistanse : MonoBehaviour
     void Update()
     {
     }
-    //‹——£
+    //è·é›¢
     public int distanse(GameObject Player, GameObject Enemy)
     {
         Vector2 posP = Player.transform.position;

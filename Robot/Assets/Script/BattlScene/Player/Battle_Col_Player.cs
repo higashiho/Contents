@@ -4,23 +4,26 @@ using UnityEngine;
 
 public class Battle_Col_Player : MonoBehaviour
 {
+    private GameObject enemy = default;                         // ã‚¨ãƒãƒŸãƒ¼æ ¼ç´ç”¨
     [SerializeField]
-    private Battl_AttackEnemy battl_AttackEnemy;        //ƒXƒNƒŠƒvƒgŠi”[—p
-
-    [SerializeField]
-    private Battle_PlayerController battle_PlayerController;        //ƒXƒNƒŠƒvƒgŠi”[—p
-
-
-    private float speed = 2.0f; //’…’nƒXƒs[ƒh
-    private float junpSoeed = 1.0f; //ƒWƒƒƒ“ƒvƒXƒs[ƒh
+    private Battl_AttackEnemy battl_AttackEnemy;                //ã‚¹ã‚¯ãƒªãƒ—ãƒˆæ ¼ç´ç”¨
 
     [SerializeField]
-    private Battl_EnemyController battl_EnemyController;        //ƒXƒNƒŠƒvƒgŠi”[—p
+    private Battle_PlayerController battle_PlayerController;    //ã‚¹ã‚¯ãƒªãƒ—ãƒˆæ ¼ç´ç”¨
 
-    private int Damege = 1;  //ŒÅ’èƒ_ƒ[ƒW
+
+    private float speed = 2.0f;                                 //ç€åœ°æ™‚ã‚¹ãƒ”ãƒ¼ãƒ‰
+    private float junpSoeed = 1.0f;                             //ã‚¸ãƒ£ãƒ³ãƒ—æ™‚ã‚¹ãƒ”ãƒ¼ãƒ‰
+
+    [SerializeField]
+    private Battl_EnemyController battl_EnemyController;        //ã‚¹ã‚¯ãƒªãƒ—ãƒˆæ ¼ç´ç”¨
+
+    private int Damege = 1;  //å›ºå®šãƒ€ãƒ¡ãƒ¼ã‚¸
     // Start is called before the first frame update
     void Start()
     {
+        enemy = GameObject.FindWithTag("AttackPoint");
+        battl_AttackEnemy = enemy.GetComponent<Battl_AttackEnemy>();
     }
 
     // Update is called once per frame
@@ -29,7 +32,7 @@ public class Battle_Col_Player : MonoBehaviour
 
     }
 
-    //TODO : ‰æ–ÊŠO‚Éo‚È‚¢‚æ‚¤‚É‚·‚é
+    //TODO : ç”»é¢å¤–ã«å‡ºãªã„ã‚ˆã†ã«ã™ã‚‹
     private void OnCollisionEnter2D(Collision2D col) 
     {
         if (col.gameObject.tag == "LeftWall")
@@ -73,17 +76,30 @@ public class Battle_Col_Player : MonoBehaviour
     {
         if (other.gameObject.tag == "EnemyBullet")
         {
+            if(battl_EnemyController == null)
+            {
+                enemy = GameObject.FindWithTag("Enemy");
+                battl_EnemyController = enemy.GetComponent<Battl_EnemyController>();
+            }
+
             battle_PlayerController.Hp-= Damege;
-            //“G‚ÌUŒ‚—Í‚ª‚±‚¿‚ç‚ÌƒfƒBƒtƒFƒ“ƒX‚æ‚è‚‚¢ê‡
-            if (battle_PlayerController.DefensePoint <= battl_EnemyController.AttackPoint)
-                battle_PlayerController.Hp -= battl_EnemyController.AttackPoint - battle_PlayerController.DefensePoint;
+            //æ•µã®æ”»æ’ƒåŠ›ãŒã“ã¡ã‚‰ã®ãƒ‡ã‚£ãƒ•ã‚§ãƒ³ã‚¹ã‚ˆã‚Šé«˜ã„å ´åˆ
+            if (battle_PlayerController.DefensePoint < battl_EnemyController.GetAttackPoint())
+                battle_PlayerController.Hp -= battl_EnemyController.GetAttackPoint() - battle_PlayerController.DefensePoint;
         }
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.tag == "AttackPoint")
+        {
+            if(battl_AttackEnemy == null)
+            {
+                enemy = GameObject.FindWithTag("AttackPoint");
+                battl_AttackEnemy = enemy.GetComponent<Battl_AttackEnemy>();
+            }
             battl_AttackEnemy.Attack();
+        }
     }
     
 }

@@ -8,7 +8,7 @@ public class BattlGameOver : MonoBehaviour
 {
 
     [SerializeField]
-    private Battle_PlayerController battle_PlayerController;        //スクリプト格納用
+    private Battle_PlayerController battle_PlayerController;        //繧ｹ繧ｯ繝ｪ繝励ヨ譬ｼ邏咲畑
 
     // Start is called before the first frame update
     void Start()

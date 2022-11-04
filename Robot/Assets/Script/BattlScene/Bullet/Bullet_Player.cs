@@ -4,26 +4,27 @@ using UnityEngine;
 
 public class Bullet_Player : MonoBehaviour
 {
-    private int dis;    //‹——£Ši”[
-    [SerializeField] private CreateDistanse createDistanse;  //ƒXƒNƒŠƒvƒgŠi”[—p
+    private int dis;    //è·é›¢æ ¼ç´
+    [SerializeField] private CreateDistanse createDistanse;  //ã‚¹ã‚¯ãƒªãƒ—ãƒˆæ ¼ç´ç”¨
 
-    private GameObject Enemy;   //“G
-    private GameObject Player;  //player
+    private GameObject enemy;   //æ•µ
+    private GameObject player;  //player
 
-    private float speed = 1.5f;   //’e‘¬
+    [SerializeField, HeaderAttribute("å¼¾é€Ÿ")]
+    private float speed = 1.5f;   //å¼¾é€Ÿ
 
 
-    private RectTransform rect; //ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€Ši”[—p
+    private RectTransform rect; //ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ æ ¼ç´ç”¨
 
-    private bool Left, Right;   //‰E‚©¶‚©
-    private bool one = true;    //”»’f1‰ñ—p
+    private bool Left, Right;   //å³ã‹å·¦ã‹
+    private bool one = true;    //åˆ¤æ–­1å›ç”¨
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.Find("Player");
-        Enemy = GameObject.Find("Enemy");
+        player = GameObject.FindWithTag("Player");
+        enemy = GameObject.FindWithTag("Enemy");
 
-        rect = GetComponent<RectTransform>();   //RectTransform‚ğæ“¾
+        rect = GetComponent<RectTransform>();   //RectTransformã‚’å–å¾—
     }
 
     // Update is called once per frame
@@ -31,21 +32,26 @@ public class Bullet_Player : MonoBehaviour
     {
         bulletSpeed();
     }
-    //’e‚Ì‹““®
+    //å¼¾ã®æŒ™å‹•
     private void bulletSpeed()
     {
-        dis = createDistanse.distanse(Player, Enemy);
-        //ƒvƒŒƒCƒ„[‚ª‰E‚©¶‚©‚ğˆê‰ñ‚¾‚¯”»’f
+        if(player == null || enemy == null)
+        {
+            player = GameObject.FindWithTag("Player");
+            enemy = GameObject.FindWithTag("Enemy");
+        }
+        dis = createDistanse.distanse(player, enemy);
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå³ã‹å·¦ã‹ã‚’ä¸€å›ã ã‘åˆ¤æ–­
         if (one)
             if (dis > 0)
                 Right = true;
             else
                 Left = true;
         one = false;
-        //‰E‚Ìê‡
+        //å³ã®å ´åˆ
         if (Right)
             rect.localPosition += new Vector3(-speed, 0, 0);
-        //¶‚Ìê‡
+        //å·¦ã®å ´åˆ
         if (Left)
             rect.localPosition += new Vector3(speed, 0, 0);
     }

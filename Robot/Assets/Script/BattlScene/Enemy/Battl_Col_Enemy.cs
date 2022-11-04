@@ -5,18 +5,21 @@ using UnityEngine;
 public class Battl_Col_Enemy : MonoBehaviour
 {
     [SerializeField]
-    private Battl_EnemyController battl_EnemyController;        //ƒXƒNƒŠƒvƒgŠi”[—p
+    private Battl_EnemyController battl_EnemyController;        //ã‚¹ã‚¯ãƒªãƒ—ãƒˆæ ¼ç´ç”¨
 
+
+    private GameObject player = default;
     [SerializeField]
-    private Battle_PlayerController battle_PlayerController;        //ƒXƒNƒŠƒvƒgŠi”[—p
+    private Battle_PlayerController battle_PlayerController;        //ã‚¹ã‚¯ãƒªãƒ—ãƒˆæ ¼ç´ç”¨
 
-    private float leftMove = 0.5f, rightMove = 2.0f;    //•Ç”½Ë—p
+    private float leftMove = 0.5f, rightMove = 2.0f;    //å£åå°„ç”¨
 
-    private int Damege = 1;  //ŒÅ’èƒ_ƒ[ƒW
+    private int Damege = 1;  //å›ºå®šãƒ€ãƒ¡ãƒ¼ã‚¸
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.Find("Player");
+        battle_PlayerController = player.GetComponent<Battle_PlayerController>();
     }
 
     // Update is called once per frame
@@ -40,10 +43,10 @@ public class Battl_Col_Enemy : MonoBehaviour
     {
         if (other.gameObject.tag == "PlayerBullet")
         {
-            battl_EnemyController.Hp -= Damege;
-            //“G‚ÌUŒ‚—Í‚ª‚±‚¿‚ç‚ÌƒfƒBƒtƒFƒ“ƒX‚æ‚è‚‚¢ê‡
-            if (battl_EnemyController.DefensePoint <= battle_PlayerController.AttackPoint)
-                battl_EnemyController.Hp -= battle_PlayerController.AttackPoint - battl_EnemyController.DefensePoint;
+            battl_EnemyController.SetHpPoint(-Damege);
+            //æ•µã®æ”»æ’ƒåŠ›ãŒã“ã¡ã‚‰ã®ãƒ‡ã‚£ãƒ•ã‚§ãƒ³ã‚¹ã‚ˆã‚Šé«˜ã„å ´åˆ
+            if (battl_EnemyController.GetDefensePoint() < battle_PlayerController.AttackPoint)
+                battl_EnemyController.SetHpPoint(battl_EnemyController.GetDefensePoint() - battle_PlayerController.AttackPoint);
         }
     }
 

@@ -5,29 +5,49 @@ using UnityEngine;
 public class Battl_EnemyController : MonoBehaviour
 {
 
-    public float Speed; //ƒvƒŒƒCƒ„[‚ÌƒXƒs[ƒh
+    public float Speed; //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ãƒ”ãƒ¼ãƒ‰
 
-    private RectTransform rect; //ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€Ši”[—p
+    private RectTransform rect; //ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ æ ¼ç´ç”¨
 
     [SerializeField]
-    private float random;       //ƒ‰ƒ“ƒ_ƒ€’lŠi”[—p
+    private float random;       //ãƒ©ãƒ³ãƒ€ãƒ å€¤æ ¼ç´ç”¨
 
-    private float Min = 0, Max = 2; //ƒ‰ƒ“ƒ_ƒ€‚ÌÅ¬’lAÅ‘å’l
+    private float Min = 0, Max = 2; //ãƒ©ãƒ³ãƒ€ãƒ ã®æœ€å°å€¤ã€æœ€å¤§å€¤
 
-    private float change = 1;   //‰E‚©¶‚Ì•ÏX’l
+    private float change = 1;   //å³ã‹å·¦ã®å¤‰æ›´å€¤
 
-    private bool wait = false;  //’â~
-    private float waitTime = 5.0f;  //’â~ŠÔ
-    public float Judges;       //‰E‚©¶‚©
+    private bool wait = false;  //åœæ­¢
+    private float waitTime = 5.0f;  //åœæ­¢æ™‚é–“
+    public float Judges;       //å³ã‹å·¦ã‹
 
 
-    public int AttackPoint; //UŒ‚—Í
-    public int DefensePoint;    //–hŒä—Í
-    public int Hp;   //ƒqƒbƒgƒ|ƒCƒ“ƒg
+    private int attack;                     //æ”»æ’ƒåŠ›
+    private int defense;                    //é˜²å¾¡åŠ›
+    private int hp;                         //ãƒ’ãƒƒãƒˆãƒã‚¤ãƒ³ãƒˆ
+
+    // å¤‰æ•°å–å¾—ç”¨
+    public int GetAttackPoint(){return attack;}
+    public int GetDefensePoint(){return defense;}
+    public int GetHpPoint(){return hp;}
+
+    public int SetAttackPoint(int plus){return attack + plus;}
+    public int SetDefensePoint(int plus){return defense + plus;}
+    public int SetHpPoint(int plus){return hp + plus;}
+
+    private const int defaultHp = 10;     // åˆæœŸHp
+    private GameObject sceneController;                     // ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä»£å…¥ç”¨
+    
     // Start is called before the first frame update
     void Start()
     {
         rect = GetComponent<RectTransform>();
+
+        sceneController = GameObject.FindWithTag("SceneController");
+
+        attack = sceneController.GetComponent<Buttle_EnemyStatus>().GetAttack();
+        defense = sceneController.GetComponent<Buttle_EnemyStatus>().GetDefense();
+        hp = defaultHp + sceneController.GetComponent<Buttle_EnemyStatus>().GetHp();
+
     }
 
     // Update is called once per frame
@@ -39,26 +59,38 @@ public class Battl_EnemyController : MonoBehaviour
             wait = true;
         }
         move();
+
+        destroy();
     }
 
     private void move()
     {
-        //‰E
+        //å³
         if (Judges >= change)
             rect.localPosition += new Vector3(Speed, 0, 0);
-        //¶
+        //å·¦
         else
             rect.localPosition -= new Vector3(Speed, 0, 0);
     }
 
-   
+   // HpãŒãªããªã£ãŸæ™‚å‡¦ç†
+   private void destroy()
+   {
+        if(hp <= 0)
+            Destroy(this.gameObject);
+   }
 
-    //ŒÜ•b‚Éˆê‰ñŒü‚«‚ğ•Ï‚¦‚é
+    //äº”ç§’ã«ä¸€å›å‘ãã‚’å¤‰ãˆã‚‹
     private IEnumerator waitJudge()
     {
-        //‚O‚©‚P‚©
+        //ï¼ã‹ï¼‘ã‹
         Judges = Random.Range(Min, Max);
         yield return new WaitForSeconds(waitTime);
         wait = false;
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("Destroy");
     }
 }

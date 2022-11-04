@@ -4,54 +4,61 @@ using UnityEngine;
 
 public class Battle_PlayerController : MonoBehaviour
 {
-    public float Speed; //ƒvƒŒƒCƒ„[‚ÌƒXƒs[ƒh
+    public float Speed; //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ãƒ”ãƒ¼ãƒ‰
 
-    private RectTransform rect; //ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€Ši”[—p
+    private RectTransform rect; //ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ æ ¼ç´ç”¨
 
 
-    public bool LeftMeve, RightMeve; //¶‰E‚É“®‚¯‚é‚©
+    public bool LeftMeve, RightMeve; //å·¦å³ã«å‹•ã‘ã‚‹ã‹
 
-    //ˆÈ‰ºƒWƒƒƒ“ƒv—p
-    private Rigidbody2D rb; //ƒŠƒWƒbƒhƒ{ƒfƒBŠi”[—p
-    [SerializeField] private float upForce; //ã•ûŒü‚É‚©‚¯‚é—Í
-    public bool IsGround; //’…’n‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©‚Ì”»’è
+    //ä»¥ä¸‹ã‚¸ãƒ£ãƒ³ãƒ—ç”¨
+    private Rigidbody2D rb; //ãƒªã‚¸ãƒƒãƒ‰ãƒœãƒ‡ã‚£æ ¼ç´ç”¨
+    [SerializeField] private float upForce; //ä¸Šæ–¹å‘ã«ã‹ã‘ã‚‹åŠ›
+
+    public bool IsGround; //ç€åœ°ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®š
 
 
     //public int JunpPoint;    //
-    public int AttackPoint;    //UŒ‚—Í
-    public int DefensePoint;    //–hŒä—Í
+    public int AttackPoint;    //æ”»æ’ƒåŠ›
+    public int DefensePoint;    //é˜²å¾¡åŠ›
 
-    public int Hp = 10; //ƒqƒbƒgƒ|ƒCƒ“ƒg
+    public int Hp = 10; //ãƒ’ãƒƒãƒˆãƒã‚¤ãƒ³ãƒˆ
 
 
-
-    [SerializeField]
-    private GameObject bullet;  //’e‚ÌƒvƒŒƒnƒu
-
-    private GameObject bulletPrefab;    //qƒIƒuƒWƒFƒNƒg•ÏX—p
-
-    //private bool one = true;    //ˆê‰ñ‚¾‚¯ˆ—
 
     [SerializeField]
-    private GameObject canvas;   //“G
+    private GameObject bullet;  //å¼¾ã®ãƒ—ãƒ¬ãƒãƒ–
 
-    public bool OnAttack;   //Attack‚Å‚«‚é‚©
+    private GameObject bulletPrefab;    //å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå¤‰æ›´ç”¨
 
+    //private bool one = true;    //ä¸€å›ã ã‘å‡¦ç†
+
+    [SerializeField]
+    private GameObject canvas;   //æ•µ
+
+    public bool OnAttack;   //Attackã§ãã‚‹ã‹
+
+    [SerializeField, HeaderAttribute("æ‰“ã¤æ„Ÿè¦š")]
+    private float waitTime;  //ã‚³ãƒ«ãƒ¼ãƒãƒ³é…å»¶ç”¨
+
+    private bool waitShot = false;  //æ‰“ã¡æ­¢ã‚ã‚‹
     // Start is called before the first frame update
     void Start()
     {
         rect = GetComponent<RectTransform>();
 
-        rb = GetComponent<Rigidbody2D>(); //ƒŠƒWƒbƒhƒ{ƒfƒB‚ğæ“¾
+        rb = GetComponent<Rigidbody2D>(); //ãƒªã‚¸ãƒƒãƒ‰ãƒœãƒ‡ã‚£ã‚’å–å¾—
     }
 
     // Update is called once per frame
     void Update()
     {
         move();
-        if (Input.GetKeyDown(KeyCode.Return) && AttackPoint > 0
-            && OnAttack)
-            attack();
+        if (Input.GetKeyDown(KeyCode.Return) && OnAttack && !waitShot)
+        {
+            waitShot = true;
+            StartCoroutine(attack());
+        }
     }
     private void move()
     {
@@ -62,15 +69,17 @@ public class Battle_PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown("space") && IsGround)
         {
-            rb.AddForce(new Vector3(0, upForce, 0)); //ã‚ÉŒü‚©‚Á‚Ä—Í‚ğ‰Á‚¦‚é
-            //JunpPoint--;
+            rb.AddForce(new Vector3(0, upForce, 0)); //ä¸Šã«å‘ã‹ã£ã¦åŠ›ã‚’åŠ ãˆã‚‹
         }
     }
 
-    private void attack()
+    private IEnumerator attack()
     {
         bulletPrefab = Instantiate(bullet, transform.position, transform.rotation);
         bulletPrefab.transform.SetParent(canvas.transform);
-        //AttackPoint--;
+
+        yield return new WaitForSeconds(waitTime);
+        waitShot = false;
+
     }
 }

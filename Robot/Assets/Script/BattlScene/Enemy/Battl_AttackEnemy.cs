@@ -6,30 +6,33 @@ public class Battl_AttackEnemy : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject bullet;  //’e‚ÌƒvƒŒƒnƒu
+    private GameObject bullet;  //å¼¾ã®ãƒ—ãƒ¬ãƒãƒ–
 
-    private GameObject bulletPrefab;    //qƒIƒuƒWƒFƒNƒg•ÏX—p
+    private GameObject bulletPrefab;    //å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå¤‰æ›´ç”¨
 
-    //private bool one = true;    //ˆê‰ñ‚¾‚¯ˆ—
-
-    [SerializeField]
-    private GameObject canvas;   //“G
-
-
-    private RectTransform rect; //ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€Ši”[—p
+    //private bool one = true;    //ä¸€å›ã ã‘å‡¦ç†
 
     [SerializeField]
-    private Battl_EnemyController battl_EnemyController;    //ƒXƒNƒŠƒvƒgŠi”[—p
+    private GameObject canvas;   //Charaæ ¼ç´Canvas
+
+
+    private RectTransform rect; //ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ æ ¼ç´ç”¨
 
     [SerializeField]
-    private float waitTime = 3.0f;  //ƒRƒ‹[ƒ`ƒ“’x‰„—p
+    private Battl_EnemyController battl_EnemyController;    //ã‚¹ã‚¯ãƒªãƒ—ãƒˆæ ¼ç´ç”¨
 
-    private bool waitShot = false;  //‘Å‚¿~‚ß‚é
+    [SerializeField]
+    private float waitTime = 3.0f;  //ã‚³ãƒ«ãƒ¼ãƒãƒ³é…å»¶ç”¨
 
+    private bool waitShot = false;  //æ‰“ã¡æ­¢ã‚ã‚‹
+
+    [SerializeField]
+    private GameObject Enemy;       // è‡ªèº«
     // Start is called before the first frame update
     void Start()
     {
         rect = GetComponent<RectTransform>();
+        canvas = GameObject.Find("Bullet");
     }
 
     // Update is called once per frame
@@ -38,20 +41,19 @@ public class Battl_AttackEnemy : MonoBehaviour
         
     }
 
-    //UŒ‚‚Å‚«‚é‚©
+    //æ”»æ’ƒã§ãã‚‹ã‹
     public void Attack()
     {
-        if (battl_EnemyController.AttackPoint > 0 && !waitShot)
+        if (!waitShot)
         {
             waitShot = true;
             StartCoroutine(waitAttack());
         }
     }
-    //ˆê‰ñ‘Å‚Á‚½‚ç­‚µ‘Ò‚Â
+    //ä¸€å›æ‰“ã£ãŸã‚‰å°‘ã—å¾…ã¤
     private IEnumerator waitAttack()
     {
-        //battl_EnemyController.AttackPoint--;
-        bulletPrefab = Instantiate(bullet, transform.position, transform.rotation);
+        bulletPrefab = Instantiate(bullet, Enemy.transform.position, transform.rotation);
         bulletPrefab.transform.SetParent(canvas.transform);
         yield return new WaitForSeconds(waitTime);
         waitShot = false;
