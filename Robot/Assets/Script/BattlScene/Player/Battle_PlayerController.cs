@@ -14,6 +14,7 @@ public class Battle_PlayerController : MonoBehaviour
     //以下ジャンプ用
     private Rigidbody2D rb; //リジッドボディ格納用
     [SerializeField] private float upForce; //上方向にかける力
+
     public bool IsGround; //着地しているかどうかの判定
 
 
@@ -37,6 +38,10 @@ public class Battle_PlayerController : MonoBehaviour
 
     public bool OnAttack;   //Attackできるか
 
+    [SerializeField, HeaderAttribute("打つ感覚")]
+    private float waitTime;  //コルーチン遅延用
+
+    private bool waitShot = false;  //打ち止める
     // Start is called before the first frame update
     void Start()
     {
@@ -49,9 +54,11 @@ public class Battle_PlayerController : MonoBehaviour
     void Update()
     {
         move();
-        if (Input.GetKeyDown(KeyCode.Return) && AttackPoint > 0
-            && OnAttack)
-            attack();
+        if (Input.GetKeyDown(KeyCode.Return) && OnAttack && !waitShot)
+        {
+            waitShot = true;
+            StartCoroutine(attack());
+        }
     }
     private void move()
     {
@@ -63,14 +70,16 @@ public class Battle_PlayerController : MonoBehaviour
         if (Input.GetKeyDown("space") && IsGround)
         {
             rb.AddForce(new Vector3(0, upForce, 0)); //上に向かって力を加える
-            //JunpPoint--;
         }
     }
 
-    private void attack()
+    private IEnumerator attack()
     {
         bulletPrefab = Instantiate(bullet, transform.position, transform.rotation);
         bulletPrefab.transform.SetParent(canvas.transform);
-        //AttackPoint--;
+
+        yield return new WaitForSeconds(waitTime);
+        waitShot = false;
+
     }
 }

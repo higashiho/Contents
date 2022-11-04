@@ -26,11 +26,13 @@ public class Battl_AttackEnemy : MonoBehaviour
 
     private bool waitShot = false;  //打ち止める
 
+    [SerializeField]
+    private GameObject Enemy;       // 自身
     // Start is called before the first frame update
     void Start()
     {
         rect = GetComponent<RectTransform>();
-        canvas = GameObject.Find("Chara");
+        canvas = GameObject.Find("Bullet");
     }
 
     // Update is called once per frame
@@ -42,7 +44,7 @@ public class Battl_AttackEnemy : MonoBehaviour
     //攻撃できるか
     public void Attack()
     {
-        if (battl_EnemyController.AttackPoint > 0 && !waitShot)
+        if (!waitShot)
         {
             waitShot = true;
             StartCoroutine(waitAttack());
@@ -51,8 +53,7 @@ public class Battl_AttackEnemy : MonoBehaviour
     //一回打ったら少し待つ
     private IEnumerator waitAttack()
     {
-        //battl_EnemyController.AttackPoint--;
-        bulletPrefab = Instantiate(bullet, transform.position, transform.rotation);
+        bulletPrefab = Instantiate(bullet, Enemy.transform.position, transform.rotation);
         bulletPrefab.transform.SetParent(canvas.transform);
         yield return new WaitForSeconds(waitTime);
         waitShot = false;

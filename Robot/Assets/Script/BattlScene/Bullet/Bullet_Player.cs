@@ -10,6 +10,7 @@ public class Bullet_Player : MonoBehaviour
     private GameObject enemy;   //敵
     private GameObject player;  //player
 
+    [SerializeField, HeaderAttribute("弾速")]
     private float speed = 1.5f;   //弾速
 
 

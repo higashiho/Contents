@@ -16,6 +16,7 @@ TagManager:
   - Graund
   - PlayerBullet
   - EnemyBullet
+  - SceneController
   layers:
   - Default
   - TransparentFX

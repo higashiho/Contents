@@ -10,6 +10,8 @@ public class ButtonCintrolelr : MonoBehaviour
     private Battl_EnemyController battl_EnemyController;    //スクリプト格納用
     [SerializeField] 
     private TextController textController;    //スクリプト格納用
+
+    private int plasPoint = 1;              // 加算する値
     // Start is called before the first frame update
     void Start()
     {
@@ -24,19 +26,19 @@ public class ButtonCintrolelr : MonoBehaviour
     //攻撃回数加算
     public void AttackUpButton()
     {
-        battl_EnemyController.AttackPoint++;
+        battl_EnemyController.SetAttackPoint(plasPoint);
         battle_PlayerController.AttackPoint++;
     }
     //被弾回数加算
     public void DefenseUpButton()
     {
-        battl_EnemyController.DefensePoint++;
+        battl_EnemyController.SetDefensePoint(plasPoint);
         battle_PlayerController.DefensePoint++;
     }
     //Hp加算
     public void HpUpButton()
     {
-        battl_EnemyController.Hp++;
+        battl_EnemyController.SetHpPoint(plasPoint);
         battle_PlayerController.Hp++;
         textController.OneMaxValue = true;
     }

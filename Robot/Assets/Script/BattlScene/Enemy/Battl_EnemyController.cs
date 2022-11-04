@@ -21,20 +21,33 @@ public class Battl_EnemyController : MonoBehaviour
     public float Judges;       //右か左か
 
 
-    public int AttackPoint; //攻撃力
-    public int DefensePoint;    //防御力
-    private int startHp = 10;     // Hp初期値
-    public int Hp;   //ヒットポイント
+    private int attack;                     //攻撃力
+    private int defense;                    //防御力
+    private int hp;                         //ヒットポイント
 
+    // 変数取得用
+    public int GetAttackPoint(){return attack;}
+    public int GetDefensePoint(){return defense;}
+    public int GetHpPoint(){return hp;}
+
+    public int SetAttackPoint(int plus){return attack + plus;}
+    public int SetDefensePoint(int plus){return defense + plus;}
+    public int SetHpPoint(int plus){return hp + plus;}
+
+    private const int defaultHp = 10;     // 初期Hp
+    private GameObject sceneController;                     // ゲームオブジェクト代入用
     
-    private GameObject textCanvas = default;
-    private TextController textController = default;      // スクリプト格納用
     // Start is called before the first frame update
     void Start()
     {
         rect = GetComponent<RectTransform>();
-        textCanvas = GameObject.Find("Text");
-        textController = textCanvas.GetComponent<TextController>();
+
+        sceneController = GameObject.FindWithTag("SceneController");
+
+        attack = sceneController.GetComponent<Buttle_EnemyStatus>().GetAttack();
+        defense = sceneController.GetComponent<Buttle_EnemyStatus>().GetDefense();
+        hp = defaultHp + sceneController.GetComponent<Buttle_EnemyStatus>().GetHp();
+
     }
 
     // Update is called once per frame
@@ -63,16 +76,8 @@ public class Battl_EnemyController : MonoBehaviour
    // Hpがなくなった時処理
    private void destroy()
    {
-        if(Hp <= 0)
-        {
-            AttackPoint++;
-            DefensePoint++;
-            Hp = startHp;
-            Hp++;
-            textController.statusSliderUpdate();
+        if(hp <= 0)
             Destroy(this.gameObject);
-
-        }
    }
 
     //五秒に一回向きを変える
@@ -82,5 +87,10 @@ public class Battl_EnemyController : MonoBehaviour
         Judges = Random.Range(Min, Max);
         yield return new WaitForSeconds(waitTime);
         wait = false;
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("Destroy");
     }
 }

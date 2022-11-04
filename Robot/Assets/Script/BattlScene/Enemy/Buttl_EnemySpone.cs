@@ -10,6 +10,11 @@ public class Buttl_EnemySpone : MonoBehaviour
     private GameObject enemy = default;                     // エネミーがいるかどうか判断用
     [SerializeField]
     private GameObject canvas;   //Chara格納Canvas
+
+    [SerializeField]
+    private Buttle_EnemyStatus enemyStatus;                     // スクリプト参照
+    [SerializeField]
+    private TextController textController;      // スクリプト参照
     // Start is called before the first frame update
     void Start()
     {
@@ -22,11 +27,16 @@ public class Buttl_EnemySpone : MonoBehaviour
         spone();
     }
 
+    // 新規エネミー生成
     private void spone()
     {
         if(enemy == null){
+            enemyStatus.StatusUp();
             enemy = Instantiate(enemyPrefab, enemyPos, transform.rotation);
             enemy.transform.SetParent(canvas.transform);
+            enemy = GameObject.FindWithTag("Enemy");
+
+            textController.StatusSliderUpdate();
         }
     }
 }

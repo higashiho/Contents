@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Status_Enemy : MonoBehaviour
 {
-    public int Attack = 0;
-    public int Defense = 0;
+    private static int attack = 0;
+    private static int defense = 0;
     [SerializeField]
     private int jump = 0;
     [SerializeField]
@@ -15,6 +15,9 @@ public class Status_Enemy : MonoBehaviour
 
     [SerializeField]
     private UI_Attack_Enemy ui_Attack_Enemy;
+
+    public static int GetAttack() {return attack;}  // ã‚¢ã‚¿ãƒƒã‚¯ã®å€¤å–å¾—
+    public static int GetDefense() {return defense;}    // ãƒ‡ã‚£ãƒ•ã‚§ãƒ³ã‚¹ã®å€¤å–å¾—
     // Start is called before the first frame update
     void Start()
     {
@@ -26,16 +29,16 @@ public class Status_Enemy : MonoBehaviour
     {
         
     }
-    //ƒXƒe[ƒ^ƒXƒAƒbƒv‚ÌUI
+    //ï¿½Xï¿½eï¿½[ï¿½^ï¿½Xï¿½Aï¿½bï¿½vï¿½ï¿½UI
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "AttackItem")
         {
-            Attack += statusUp;
+            attack += statusUp;
         }
         if (other.gameObject.tag == "DefenseItem")
         {
-            Defense += statusUp;
+            defense += statusUp;
         }
     }
 }

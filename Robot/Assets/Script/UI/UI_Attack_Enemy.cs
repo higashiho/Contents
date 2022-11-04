@@ -6,10 +6,7 @@ using UnityEngine.UI;
 public class UI_Attack_Enemy : MonoBehaviour
 {
     
-    private Text text;      //ƒeƒLƒXƒgŠi”[—p
-
-    [SerializeField]
-    private Status_Enemy status_Enemy;      //ƒXƒNƒŠƒvƒgŠi”[—p
+    private Text text;      //ï¿½eï¿½Lï¿½Xï¿½gï¿½iï¿½[ï¿½p
 
     // Start is called before the first frame update
     void Start()
@@ -23,10 +20,10 @@ public class UI_Attack_Enemy : MonoBehaviour
         DefStatus();
     }
 
-    //Enemy‚ÌAttackText‚Ì•\Ž¦
+    //Enemyï¿½ï¿½AttackTextï¿½Ì•\ï¿½ï¿½
     private void DefStatus()
     {
-        text.text = "Attack: " + status_Enemy.Attack + "\nDefence"
-            + status_Enemy.Defense;
+        text.text = "Attack: " + Status_Enemy.GetAttack() + "\nDefence"
+            + Status_Enemy.GetDefense();
     }
 }

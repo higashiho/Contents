@@ -76,16 +76,16 @@ public class Battle_Col_Player : MonoBehaviour
     {
         if (other.gameObject.tag == "EnemyBullet")
         {
-            if(battl_AttackEnemy == null)
+            if(battl_EnemyController == null)
             {
                 enemy = GameObject.FindWithTag("Enemy");
-                battl_AttackEnemy = enemy.GetComponent<Battl_AttackEnemy>();
+                battl_EnemyController = enemy.GetComponent<Battl_EnemyController>();
             }
 
             battle_PlayerController.Hp-= Damege;
             //敵の攻撃力がこちらのディフェンスより高い場合
-            if (battle_PlayerController.DefensePoint <= battl_EnemyController.AttackPoint)
-                battle_PlayerController.Hp -= battl_EnemyController.AttackPoint - battle_PlayerController.DefensePoint;
+            if (battle_PlayerController.DefensePoint < battl_EnemyController.GetAttackPoint())
+                battle_PlayerController.Hp -= battl_EnemyController.GetAttackPoint() - battle_PlayerController.DefensePoint;
         }
     }
 
@@ -93,7 +93,7 @@ public class Battle_Col_Player : MonoBehaviour
     {
         if (other.gameObject.tag == "AttackPoint")
         {
-            if(enemy == null)
+            if(battl_AttackEnemy == null)
             {
                 enemy = GameObject.FindWithTag("AttackPoint");
                 battl_AttackEnemy = enemy.GetComponent<Battl_AttackEnemy>();

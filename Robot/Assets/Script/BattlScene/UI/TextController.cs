@@ -9,7 +9,7 @@ public class TextController : MonoBehaviour
     private Battle_PlayerController battle_PlayerController;    //スクリプト格納用
 
     [SerializeField]
-    private Battl_EnemyController battl_EnemyController;    //スクリプト格納用
+    private GameObject enemy;    //スクリプト格納用
 
     [SerializeField]
     private Text playerAttackText = default; //playerアタックテキスト
@@ -35,8 +35,18 @@ public class TextController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        if(enemy == null)
+            findEnemy();
+
         statusText();
         statusSlider();
+
+    }
+
+    private void findEnemy()
+    {
+        enemy = GameObject.FindWithTag("Enemy");
     }
 
     //Status表示
@@ -45,8 +55,8 @@ public class TextController : MonoBehaviour
         playerAttackText.text = "Attack × " + battle_PlayerController.AttackPoint;
         playerDefenseText.text = "Defense × " + battle_PlayerController.DefensePoint;
 
-        enemyAttackText.text = "Attack × " + battl_EnemyController.AttackPoint;
-        enemyDefenseText.text = "Defense × " + battl_EnemyController.DefensePoint;
+        enemyAttackText.text = "Attack × " + enemy.GetComponent<Battl_EnemyController>().GetAttackPoint();
+        enemyDefenseText.text = "Defense × " + enemy.GetComponent<Battl_EnemyController>().GetDefensePoint();
     }
 
     //スライダー表示
@@ -55,17 +65,17 @@ public class TextController : MonoBehaviour
         if (OneMaxValue)
         {
             playerHpSlider.maxValue = battle_PlayerController.Hp;
-            enemyHpSlider.maxValue = battl_EnemyController.Hp;
+            enemyHpSlider.maxValue = enemy.GetComponent<Battl_EnemyController>().GetHpPoint();
         }
         playerHpSlider.value = battle_PlayerController.Hp;
-        enemyHpSlider.value = battl_EnemyController.Hp;
+        enemyHpSlider.value = enemy.GetComponent<Battl_EnemyController>().GetHpPoint();
         OneMaxValue = false;
     }
 
-    public void statusSliderUpdate()
+    public void StatusSliderUpdate()
     {
-        enemyHpSlider.maxValue = battl_EnemyController.Hp;
-        enemyHpSlider.value = battl_EnemyController.Hp;
+        enemyHpSlider.maxValue = enemy.GetComponent<Battl_EnemyController>().GetHpPoint();
+        enemyHpSlider.value = enemy.GetComponent<Battl_EnemyController>().GetHpPoint();
 
     }
 
