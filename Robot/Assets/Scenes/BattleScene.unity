@@ -1510,7 +1510,7 @@ GameObject:
   - component: {fileID: 888705821}
   m_Layer: 5
   m_Name: Text
-  m_TagString: Untagged
+  m_TagString: TextUi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3742,6 +3742,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 3629232687779323723, guid: 6c2429d43ed7df54388ab14ecd4900e0, type: 3}
+      propertyPath: localGrabity.y
+      value: -50
+      objectReference: {fileID: 0}
     - target: {fileID: 3629232687779323729, guid: 6c2429d43ed7df54388ab14ecd4900e0, type: 3}
       propertyPath: battle_PlayerController
       value: 
@@ -3843,10 +3847,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3715786322564592952, guid: 1df5358af0639ba42ad936ad7c36d9da, type: 3}
+      propertyPath: localGrabity.y
+      value: -50
+      objectReference: {fileID: 0}
     - target: {fileID: 3715786322564592953, guid: 1df5358af0639ba42ad936ad7c36d9da, type: 3}
       propertyPath: canvas
       value: 
       objectReference: {fileID: 861822850}
+    - target: {fileID: 3715786322564592953, guid: 1df5358af0639ba42ad936ad7c36d9da, type: 3}
+      propertyPath: upForce
+      value: 2000
+      objectReference: {fileID: 0}
     - target: {fileID: 3715786322564592958, guid: 1df5358af0639ba42ad936ad7c36d9da, type: 3}
       propertyPath: battl_AttackEnemy
       value: 

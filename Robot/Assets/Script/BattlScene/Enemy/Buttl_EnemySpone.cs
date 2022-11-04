@@ -33,10 +33,9 @@ public class Buttl_EnemySpone : MonoBehaviour
         if(enemy == null){
             enemyStatus.StatusUp();
             enemy = Instantiate(enemyPrefab, enemyPos, transform.rotation);
+            
             enemy.transform.SetParent(canvas.transform);
             enemy = GameObject.FindWithTag("Enemy");
-
-            textController.StatusSliderUpdate();
         }
     }
 }

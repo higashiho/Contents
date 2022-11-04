@@ -43,10 +43,12 @@ public class Battl_Col_Enemy : MonoBehaviour
     {
         if (other.gameObject.tag == "PlayerBullet")
         {
-            battl_EnemyController.SetHpPoint(-Damege);
+            battl_EnemyController.SetHpPoint(Damege, true);
+            
             //敵の攻撃力がこちらのディフェンスより高い場合
             if (battl_EnemyController.GetDefensePoint() < battle_PlayerController.AttackPoint)
-                battl_EnemyController.SetHpPoint(battl_EnemyController.GetDefensePoint() - battle_PlayerController.AttackPoint);
+                battl_EnemyController.SetHpPoint(battl_EnemyController.GetDefensePoint()
+                 - battle_PlayerController.AttackPoint, true);
         }
     }
 

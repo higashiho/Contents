@@ -28,12 +28,14 @@ public class ButtonCintrolelr : MonoBehaviour
     {
         battl_EnemyController.SetAttackPoint(plasPoint);
         battle_PlayerController.AttackPoint++;
+        textController.StatusText();
     }
     //被弾回数加算
     public void DefenseUpButton()
     {
         battl_EnemyController.SetDefensePoint(plasPoint);
         battle_PlayerController.DefensePoint++;
+        textController.StatusText();
     }
     //Hp加算
     public void HpUpButton()

@@ -30,53 +30,50 @@ public class TextController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        enemy = GameObject.FindWithTag("Enemy");
+        StatusText();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        if(enemy == null)
-            findEnemy();
-
-        statusText();
         statusSlider();
-
-    }
-
-    private void findEnemy()
-    {
-        enemy = GameObject.FindWithTag("Enemy");
     }
 
     //Status表示
-    private void statusText()
+    public void StatusText()
     {
-        playerAttackText.text = "Attack × " + battle_PlayerController.AttackPoint;
-        playerDefenseText.text = "Defense × " + battle_PlayerController.DefensePoint;
+        playerAttackText.text = "Attack : " + battle_PlayerController.AttackPoint;
+        playerDefenseText.text = "Defense : " + battle_PlayerController.DefensePoint;
 
-        enemyAttackText.text = "Attack × " + enemy.GetComponent<Battl_EnemyController>().GetAttackPoint();
-        enemyDefenseText.text = "Defense × " + enemy.GetComponent<Battl_EnemyController>().GetDefensePoint();
+        enemyAttackText.text = "Attack : " + enemy.GetComponent<Battl_EnemyController>().GetAttackPoint();
+        enemyDefenseText.text = "Defense : " + enemy.GetComponent<Battl_EnemyController>().GetDefensePoint();
     }
 
     //スライダー表示
     private void statusSlider()
     {
-        if (OneMaxValue)
+        if(enemy != null)
         {
-            playerHpSlider.maxValue = battle_PlayerController.Hp;
-            enemyHpSlider.maxValue = enemy.GetComponent<Battl_EnemyController>().GetHpPoint();
+            if (OneMaxValue)
+            {
+                playerHpSlider.maxValue = battle_PlayerController.Hp;
+                enemyHpSlider.maxValue = enemy.GetComponent<Battl_EnemyController>().GetHpPoint();
+            }
+            playerHpSlider.value = battle_PlayerController.Hp;
+            enemyHpSlider.value = enemy.GetComponent<Battl_EnemyController>().GetHpPoint();
+            OneMaxValue = false;
         }
-        playerHpSlider.value = battle_PlayerController.Hp;
-        enemyHpSlider.value = enemy.GetComponent<Battl_EnemyController>().GetHpPoint();
-        OneMaxValue = false;
     }
 
+    // 敵が新しく出現したらUI情報上書
     public void StatusSliderUpdate()
     {
+        enemy = GameObject.FindWithTag("Enemy");
         enemyHpSlider.maxValue = enemy.GetComponent<Battl_EnemyController>().GetHpPoint();
-        enemyHpSlider.value = enemy.GetComponent<Battl_EnemyController>().GetHpPoint();
-
+        
+        enemyAttackText.text = "Attack : " + enemy.GetComponent<Battl_EnemyController>().GetAttackPoint();
+        enemyDefenseText.text = "Defense : " + enemy.GetComponent<Battl_EnemyController>().GetDefensePoint();
     }
 
 }
