@@ -18,6 +18,7 @@ TagManager:
   - EnemyBullet
   - SceneController
   - TextUi
+  - Bird
   layers:
   - Default
   - TransparentFX
