@@ -14,49 +14,74 @@ public class SponeBird : MonoBehaviour
     }
 
     [SerializeField]
-    private GameObject birdPrefab;                      // 鳥プレハブ
+    private GameObject birdPrefab;                                  // 鳥プレハブ
 
 
+    private const int listSize = 13;                                // リストの要素数
     [SerializeField, HeaderAttribute("出現座標")]
-    private List<Vector3> pos = new List<Vector3>();    // 座標
+    private List<Vector3> pos = new List<Vector3>(listSize);        // 座標
     [SerializeField, HeaderAttribute("どこに出現するか")]
-    private direction directions = direction.UP;        // 出現位置代入用
+    private direction directions = direction.UP;                    // 出現位置代入用
 
 
     [SerializeField]
-    private int number;                                 // 出現位置格納ランダム用
-    private int maxValue = 6;                           // for文用最大値
-    private int randPos;                                // 出現座標指定ランダム用
+    private int number;                                             // 出現位置格納ランダム用
+    private int maxValue = 6;                                       // for文用最大値
+
+    private GameObject bird;                                        // 鳥がいるかどうか確認用
+
     // Start is called before the first frame update
     void Awake()
     {
-        posAdd();
     }
 
     // Update is called once per frame
     void Update()
     { 
+        if(bird == null)
+            randomSpone();
     }
 
-    private void instansBird()
+    // Random判断用
+    private void randomSpone()
     {
+        // 最大値
+        int m_greatest = 100;
+        // sponeするための値
+        int m_spone = 95;       
+
+        // 0~100までの値をランダムに代入
+        int m_randValue = Random.Range(0, m_greatest);   
+
+        // 95よりも大きい場合生成
+        if(m_randValue >= m_spone)
+            instansBird();
+    }
+    // BirdをRandomな指定位置に生成
+    private void instansBird()
+    {                               
         posAdd();
-        Instantiate(birdPrefab, pos[1], Quaternion.identity);
+        
+        int randPos = Random.Range(0, pos.Count);
+        bird = Instantiate(birdPrefab, pos[randPos], Quaternion.identity);
+
+
     }
 
-    // posList に値を代入する
+    // List(pos) に値を代入する
     private void posAdd()
     {
-        // enumの要素数を取得
-        int length = System.Enum.GetValues(typeof(direction)).Length;
-        number = Random.Range(0, length);
+        // 列挙体要素数取得用
+        int m_length = System.Enum.GetValues(typeof(direction)).Length;                                 
+        number = Random.Range(0, m_length);
 
+        // directions を初期値に戻しておく
+        directions = direction.UP;
         // numberの値にてdirectionsの要素数を変更し、posに座標を代入する
         directions += number;
         switch (directions)
         {
             case direction.UP:
-                pos.Clear();
                 for(int i = -6; i <= maxValue; i++)
                 {
                     pos.Add(new Vector3((float)i, 6.0f, -16.0f));
@@ -88,4 +113,10 @@ public class SponeBird : MonoBehaviour
         }
         
     } 
+
+    private void OnDestroy()
+    {
+        pos.Clear();
+
+    }
 }
