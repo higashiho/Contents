@@ -1623,7 +1623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bdb559282570c479dbaa104387d011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  birdPrefab: {fileID: 5384499580150336278, guid: 08fef2d5b7f8e284cabf85273f350577, type: 3}
+  birdPrefab: {fileID: 227663129100822194, guid: 4ed75ce7a59df7241b896ee345777360, type: 3}
   pos: []
   directions: 0
   number: 0

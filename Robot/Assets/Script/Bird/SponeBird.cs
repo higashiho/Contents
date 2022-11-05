@@ -30,6 +30,8 @@ public class SponeBird : MonoBehaviour
 
     private GameObject bird;                                        // 鳥がいるかどうか確認用
 
+    private bool onCoroutine = false;                               // コルーチンに入ってるか
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -38,17 +40,22 @@ public class SponeBird : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        if(bird == null)
-            randomSpone();
+        if(bird == null && !onCoroutine)
+           StartCoroutine(randomSpone());
     }
 
     // Random判断用
-    private void randomSpone()
+    private IEnumerator randomSpone()
     {
+        onCoroutine = true;
+        // 三秒遅延
+        float m_waitTime = 0.5f;
+        yield return new WaitForSeconds(m_waitTime);
+
         // 最大値
         int m_greatest = 100;
         // sponeするための値
-        int m_spone = 95;       
+        int m_spone = 80;       
 
         // 0~100までの値をランダムに代入
         int m_randValue = Random.Range(0, m_greatest);   
@@ -56,6 +63,8 @@ public class SponeBird : MonoBehaviour
         // 95よりも大きい場合生成
         if(m_randValue >= m_spone)
             instansBird();
+            
+        onCoroutine = false;
     }
     // BirdをRandomな指定位置に生成
     private void instansBird()

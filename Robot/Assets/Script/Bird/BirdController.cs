@@ -14,11 +14,14 @@ public class BirdController : MonoBehaviour
 
     private float destroyTime = 3.0f;                   // 消えるまでの時間
 
+    // trueかfalseをランダムにどちらか返す
     private bool randomBool()
     {
         int max = 2;
         return Random.Range(0, max) == 0;
     }
+
+
     void Awake()
     {
         if(randomBool())
@@ -26,6 +29,7 @@ public class BirdController : MonoBehaviour
         else
             target = GameObject.FindWithTag("Enemy");
     }
+    
     // Start is called before the first frame update
     void Start()
     {
