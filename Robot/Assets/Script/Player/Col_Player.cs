@@ -6,7 +6,7 @@ public class Col_Player : MonoBehaviour
 {
     [SerializeField]
     private PlayerController playercontroller;
-    public int HaveCount = 0;  // ‚Á‚Ä‚éŒÂ”
+    public int HaveCount = 0;  // æŒã£ã¦ã‚‹å€‹æ•°
     void Start()
     {
         
@@ -23,13 +23,13 @@ public class Col_Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // ƒAƒCƒeƒ€‚ğæ‚Á‚½‚ç‹’“_‚É‹A‚é
+        // ã‚¢ã‚¤ãƒ†ãƒ ã‚’å–ã£ãŸã‚‰æ‹ ç‚¹ã«å¸°ã‚‹
         if (other.gameObject.tag == "AttackItem" || other.gameObject.tag == "DefenseItem")
         {
             HaveCount++;
             playercontroller.HaveItem = true;
         }
-        // ‹’“_‚É‹A‚Á‚½‚çV‚µ‚¢ƒAƒCƒeƒ€‚ğæ‚è‚És‚­
+        // æ‹ ç‚¹ã«å¸°ã£ãŸã‚‰æ–°ã—ã„ã‚¢ã‚¤ãƒ†ãƒ ã‚’å–ã‚Šã«è¡Œã
         if(other.gameObject.tag == "Home")
         {
             playercontroller.HaveItem = false;

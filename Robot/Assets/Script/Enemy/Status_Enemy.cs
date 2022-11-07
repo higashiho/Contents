@@ -29,7 +29,8 @@ public class Status_Enemy : MonoBehaviour
     {
         
     }
-    //�X�e�[�^�X�A�b�v��UI
+
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "AttackItem")

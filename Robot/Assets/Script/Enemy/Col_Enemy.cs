@@ -7,9 +7,9 @@ public class Col_Enemy : MonoBehaviour
     [SerializeField]
     private EnemyController enemycontroller;
 
-    public int HaveCount = 0;   //‚Á‚Ä‚éŒÂ”
-    private int maxHaveCount = 1;    //ƒJƒEƒ“ƒg‚ª‘‚¦‚éÅ‘å’l
-    private bool isHit;         // ƒvƒŒƒCƒ„[‚ÌUŒ‚‚ğó‚¯‚Ä‚¢‚é‚©
+    public int HaveCount = 0;   //æŒã£ã¦ã‚‹å€‹æ•°
+    private int maxHaveCount = 1;    //ã‚«ã‚¦ãƒ³ãƒˆãŒå¢—ãˆã‚‹æœ€å¤§å€¤
+    private bool isHit;         // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ”»æ’ƒã‚’å—ã‘ã¦ã„ã‚‹ã‹
    [SerializeField]
     private int loopCount = 4;
     [SerializeField]
@@ -30,34 +30,34 @@ public class Col_Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //ƒAƒCƒeƒ€‚ğæ‚Á‚½‚ç‹’“_‚É‹A‚é
+        //ã‚¢ã‚¤ãƒ†ãƒ ã‚’å–ã£ãŸã‚‰æ‹ ç‚¹ã«å¸°ã‚‹
         if (other.gameObject.tag == "AttackItem" || other.gameObject.tag == "DefenseItem")
         {
             if (HaveCount < maxHaveCount)
                 HaveCount++;
-            enemycontroller.HaveItem = true;   // ƒAƒCƒeƒ€Šƒtƒ‰ƒOON
+            enemycontroller.HaveItem = true;   // ã‚¢ã‚¤ãƒ†ãƒ æ‰€æŒãƒ•ãƒ©ã‚°ON
             
         }
-        //‹’“_‚É‹A‚Á‚½‚çV‚µ‚¢ƒAƒCƒeƒ€‚ğæ‚è‚És‚­
+        //æ‹ ç‚¹ã«å¸°ã£ãŸã‚‰æ–°ã—ã„ã‚¢ã‚¤ãƒ†ãƒ ã‚’å–ã‚Šã«è¡Œã
         if (other.gameObject.tag == "Home")
         {
-            enemycontroller.HaveItem = false;  // ƒAƒCƒeƒ€Šƒtƒ‰ƒOOFF
+            enemycontroller.HaveItem = false;  // ã‚¢ã‚¤ãƒ†ãƒ æ‰€æŒãƒ•ãƒ©ã‚°OFF
             if (HaveCount > 0)
                 HaveCount--;
         }
-        // player‚ÌUŒ‚‚ğó‚¯‚½‚ç...
+        // playerã®æ”»æ’ƒã‚’å—ã‘ãŸã‚‰...
         if(other.gameObject.tag == "Bat")
         {
-            enemycontroller.b_move_ok = false;  // ƒGƒlƒ~[s“®‰Â”\ƒtƒ‰ƒOOFF
-            enemycontroller.HaveItem = false;   // ƒAƒCƒeƒ€Šƒtƒ‰ƒOOFF
+            enemycontroller.b_move_ok = false;  // ã‚¨ãƒãƒŸãƒ¼è¡Œå‹•å¯èƒ½ãƒ•ãƒ©ã‚°OFF
+            enemycontroller.HaveItem = false;   // ã‚¢ã‚¤ãƒ†ãƒ æ‰€æŒãƒ•ãƒ©ã‚°OFF
             if (HaveCount > 0)
                 HaveCount--;
             if (isHit)
                 return;
             else
                 StartCoroutine(Hit());
-           // enemycontroller.b_move_ok = false;  // ƒGƒlƒ~[s“®‰Â”\ƒtƒ‰ƒOOFF
-            //enemycontroller.HaveItem = false;   // ƒAƒCƒeƒ€Šƒtƒ‰ƒOOFF
+           // enemycontroller.b_move_ok = false;  // ã‚¨ãƒãƒŸãƒ¼è¡Œå‹•å¯èƒ½ãƒ•ãƒ©ã‚°OFF
+            //enemycontroller.HaveItem = false;   // ã‚¢ã‚¤ãƒ†ãƒ æ‰€æŒãƒ•ãƒ©ã‚°OFF
             //if (HaveCount > 0)
              //   HaveCount--;
         }
@@ -67,7 +67,7 @@ public class Col_Enemy : MonoBehaviour
     {
         isHit = true;
 
-        // “_–Åƒ‹[ƒv
+        // ç‚¹æ»…ãƒ«ãƒ¼ãƒ—
         for(int i = 0; i < loopCount; i++)
         {
             yield return new WaitForSeconds(flashInterval);
