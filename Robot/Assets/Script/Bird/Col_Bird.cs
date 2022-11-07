@@ -23,11 +23,4 @@ public class Col_Bird : MonoBehaviour
             this.GetComponent<BirdController>().GoBack();
         }
     }
-    private void OnCollisionExit(Collision col)
-    {
-        if(col.gameObject.tag == "Graund")
-        {
-            onDamage = false;
-        }
-    }
 }

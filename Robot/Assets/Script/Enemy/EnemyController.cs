@@ -6,87 +6,116 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyController : MonoBehaviour
 {
-    private enum items      //‘Šè‚Ìí—Ş
+    private enum items      //ã€€ã‚¢ã‚¤ãƒ†ãƒ ã®ç¨®é¡
     {
         Attack = 0,
         Defense = 1,
     }
 
     [SerializeField]
-    private GameObject item;    //æ“¾ƒAƒCƒeƒ€
+    private GameObject item;    //å–ã‚Šã«è¡Œãã‚¢ã‚¤ãƒ†ãƒ 
 
     [SerializeField]
-    private GameObject home;    //w’n
+    private GameObject home;    //æŒã¡å¸°ã‚‹å ´æ‰€
 
-    private Vector3 enemyPosition;  //©•ª‚ÌˆÊ’u
+    private Vector3 enemyPosition;  //è‡ªèº«ã®ä½ç½®
 
 
     [SerializeField]
-    private float speed; //©g‚ÌƒXƒs[ƒh
+    private float speed; //æŒ™å‹•ã‚¹ãƒ”ãƒ¼ãƒ‰
  
     [SerializeField]
-    private float lowSpeed; //ƒAƒCƒeƒ€‚ğ‚Á‚Ä‚¢‚éó‘Ô‚Ì©g‚ÌƒXƒs[ƒh
+    private float lowSpeed; //ã‚¢ã‚¤ãƒ†ãƒ ã‚’æŒã£ãŸå ´åˆã®ã‚¹ãƒ”ãƒ¼ãƒ‰
 
     [SerializeField]
-    private float downTime = 2f;  // ƒGƒlƒ~[”íUŒ‚Œãs“®•s‰ÂŠÔ
+    private float downTime = 2f;  // å‹•ã‘ãªããªã‚‹æ™‚é–“
 
-    private NavMeshAgent navMesh;   //NavMeshŠi”[—p
+    private NavMeshAgent navMesh;   //NavMeshå–å¾—ç”¨
 
 
-    public bool HaveItem = false;   //ƒAƒCƒeƒ€‚ğ‚Á‚Ä‚¢‚é‚©
+    public bool HaveItem = false;   //ã‚¢ã‚¤ãƒ†ãƒ ã‚’æŒã£ã¦ã„ã‚‹ã‹
 
-    private int random = 2;     //ƒ‰ƒ“ƒ_ƒ€—pÅ‘å’l
+    private int seekItem;   // ã‚¢ã‚¤ãƒ†ãƒ ãƒ©ãƒ³ãƒ€ãƒ ç”¨
 
-    private int seekItem;   //‚Ç‚ÌƒAƒCƒeƒ€‚ğ’T‚·‚©
+    public bool b_move_ok;  // å‹•ã‘ã‚‹ã‹ã©ã†ã‹
 
-    public bool b_move_ok;  // s“®‰Â”\‚©‚Ç‚¤‚©
-
+    [SerializeField]
+    private GameObject marking;
+    private Col_Marking colMarking;
+    private bool onDamage = false;          // ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ãŸã‹
     
+    private bool onHeel = true;             // ãƒ’ãƒ¼ãƒ«ã«å…¥ã£ãŸã‹
    
     // Start is called before the first frame update
     void Start()
     {
-        b_move_ok = true;   // s“®‰Â”\ƒtƒ‰ƒOON
+        b_move_ok = true;   
 
-        navMesh = GetComponent<NavMeshAgent>();     //navMesh‚ğŠ
+        navMesh = GetComponent<NavMeshAgent>();     
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (b_move_ok)      // s“®‰Â”\ƒtƒ‰ƒOON‚Ì
+        if(marking != null)
+            if(colMarking.GetDamage())
+                onDamage = colMarking.GetDamage();
+        
+
+        if(onDamage)
+        {
+            if(onHeel)
+            {
+                float waitTime = 3.0f;
+                onHeel = false;
+                Invoke("heelDamage", waitTime); 
+            }
+            return;
+        }
+
+        if (b_move_ok)      
         {
            
-            if (!HaveItem)  // ƒAƒCƒeƒ€‚ğ‚Á‚Ä‚¢‚È‚¢‚Æ‚«
-                move();     // ƒAƒCƒeƒ€‚ğæ‚è‚És‚­
+            if (!HaveItem)  
+                move();     
 
-            if (HaveItem)   // ƒAƒCƒeƒ€‚ğ‚Á‚Ä‚¢‚é
-                goAway();   // ƒAƒCƒeƒ€‚ğ©w‚É‚Á‚Ä‹A‚é
+            if (HaveItem)  
+                goAway();   
         }
 
-        if (!b_move_ok && HaveItem)     // s“®‰Â”\ƒtƒ‰ƒOOFF ‚©‚Â ƒAƒCƒeƒ€‚ğ‚Á‚Ä‚¢‚é‚Æ‚«
+        if (!b_move_ok)     
         {
-
             StartCoroutine("StopTime");
-          //  HaveItem = false;  // ƒAƒCƒeƒ€‚ğæ‚è‚És‚¯‚é‚æ‚¤‚É‚·‚é
-          //  b_move_ok = true;  // ƒGƒlƒ~[s“®‰Â”\ƒtƒ‰ƒOON
         }
     }
+    // ãƒ€ãƒ¡ãƒ¼ã‚¸ç”¨å¤‰æ•°åˆæœŸåŒ–
+     private void heelDamage()
+    {
+        onDamage = false;
+        onHeel = true;
+    }
 
-    //‹““®
+    // Markingã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå–å¾—
+    public void FindMarking(GameObject markingObj)
+    {
+        marking = markingObj;
+        colMarking = marking.GetComponent<Col_Marking>();
+    }
+    //æŒ™å‹•
     private void move()
     {
+        int m_random = 2;
         enemyPosition = transform.position;
 
         //Item = serchTag(gameObject, "Item");
-        seekItem = Random.Range(0, random);
+        seekItem = Random.Range(0, m_random);
         if (item == null)
             switch (seekItem)
             {
-                case 0: //UŒ‚ƒAƒCƒeƒ€‚ğæ‚è‚És‚­
+                case 0: //Attackã‚¢ã‚¤ãƒ†ãƒ ã‚’ç›®æŒ‡ã™
                     item = GameObject.FindWithTag("AttackItem");
                     break;
-                case 1: //–hŒäƒAƒCƒeƒ€‚ğæ‚è‚És‚­
+                case 1: //Defenseã‚¢ã‚¤ãƒ†ãƒ ã‚’ç›®æŒ‡ã™
                     item = GameObject.FindWithTag("DefenseItem");
                     break;
                 default:
@@ -102,11 +131,11 @@ public class EnemyController : MonoBehaviour
 
             transform.position = enemyPosition;
                */
-            navMesh.destination = item.transform.position;   //ƒAƒCƒeƒ€‚ğ–Úw‚µ‚Äi‚Ş
+            navMesh.destination = item.transform.position;   
             }
     }
 
-    //ƒAƒCƒeƒ€‚ğ‚Æ‚Á‚½Œã‚Ì‹““®
+    //  ã‚¢ã‚¤ãƒ†ãƒ ã‚’å–å¾—ã—ãŸã‚‰å®¶ã«å¸°ã‚‹
     private void goAway()
     {/*
         enemyPosition = transform.position;
@@ -125,8 +154,8 @@ public class EnemyController : MonoBehaviour
         navMesh.isStopped = true;
         yield return new WaitForSeconds(downTime);
         this.gameObject.transform.DetachChildren();
-        HaveItem = false;  // ƒAƒCƒeƒ€‚ğæ‚è‚És‚¯‚é‚æ‚¤‚É‚·‚é
-        b_move_ok = true;  // ƒGƒlƒ~[s“®‰Â”\ƒtƒ‰ƒOON
+        HaveItem = false;  
+        b_move_ok = true;  
         navMesh.isStopped = false;
     }
 

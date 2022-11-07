@@ -19,6 +19,13 @@ public class PlayerController : MonoBehaviour
     private float Left;
 
     public bool HaveItem = false;   //アイテムを持っているか
+
+    [SerializeField]
+    private GameObject marking;
+    private Col_Marking colMarking;
+    private bool onDamage = false;          // ダメージを受けたか
+    
+    private bool onHeel = true;             // ヒールに入ったか
     void Start()
     {
         b_left = true;
@@ -32,10 +39,39 @@ public class PlayerController : MonoBehaviour
    
     void Update()
     {
+        if(marking != null)
+            if(colMarking.GetDamage())
+                onDamage = colMarking.GetDamage();
+        
+
+        if(onDamage)
+        {
+            if(onHeel)
+            {
+                float waitTime = 3.0f;
+                onHeel = false;
+                Invoke("heelDamage", waitTime); 
+            }
+            return;
+        }
+
         if (!HaveItem)
             move();
         else
             goAway();
+    }
+    // ダメージ用変数初期化
+    private void heelDamage()
+    {
+        onDamage = false;
+        onHeel = true;
+    }
+
+    // Markingオブジェクト取得
+    public void FindMarking(GameObject markingObj)
+    {
+        marking = markingObj;
+        colMarking = marking.GetComponent<Col_Marking>();
     }
 
     void move()

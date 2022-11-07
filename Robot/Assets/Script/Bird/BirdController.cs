@@ -71,7 +71,10 @@ public class BirdController : MonoBehaviour
     {
         transform.LookAt(homePos);
         back = true;
-        Destroy(marking.gameObject);
+
+        // 0.1秒後に削除
+        float destroyTime = 0.1f;
+        Destroy(marking.gameObject, destroyTime);
     }
 
     private void tagetMarking()

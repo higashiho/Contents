@@ -5,15 +5,19 @@ using UnityEngine;
 public class Col_Marking : MonoBehaviour
 {
 
-    private Col_Bird col_Bird;
+    private Col_Bird colBird;
     private GameObject bird;
 
-
+    private bool damage = false;        // ダメージ
+    
+    public bool GetDamage() {return damage;}
+    private GameObject player;
     // Start is called before the first frame update
     void Start()
     {
         bird = GameObject.FindWithTag("Bird");
-        col_Bird = bird.GetComponent<Col_Bird>();
+        colBird = bird.GetComponent<Col_Bird>();
+
     }
 
     // Update is called once per frame
@@ -26,9 +30,19 @@ public class Col_Marking : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            if(col_Bird.GetOnDamage())
+            if(colBird.GetOnDamage())
             {
-                //damage = true;
+                other.GetComponent<PlayerController>().FindMarking(this.gameObject);
+                damage = true;
+            }
+
+        }
+        if(other.gameObject.tag == "Enemy")
+        {
+            if(colBird.GetOnDamage())
+            {
+                other.GetComponent<EnemyController>().FindMarking(this.gameObject);
+                damage = true;
             }
 
         }
