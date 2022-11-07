@@ -7,7 +7,7 @@ public class BatController: MonoBehaviour
     
     void Start()
     {
-        GetComponent<BoxCollider>().enabled = false;  //ƒoƒbƒg“–‚½‚è”»’èOFF
+        GetComponent<BoxCollider>().enabled = false;  //ãƒãƒƒãƒˆå½“ãŸã‚Šåˆ¤å®šOFF
     }
 
    
@@ -16,25 +16,25 @@ public class BatController: MonoBehaviour
             Attack();
       
     }
-    private IEnumerator RotateX_r()   // 60‹‰ñ‚·
+    private IEnumerator RotateX_r()   // 60Â°å›ã™
     {
 
-        for(int i = 0; i < 3; i++)  //3‰ñŒJ‚è•Ô‚·
+        for(int i = 0; i < 3; i++)  //3å›ç¹°ã‚Šè¿”ã™
         {
-            transform.Rotate(new Vector3(0, 20, 0));  // 20‹‰ñ“]
-            yield return new WaitForSeconds(0.01f);@@//0.01•b
+            transform.Rotate(new Vector3(0, 20, 0));  // 20Â°å›è»¢
+            yield return new WaitForSeconds(0.01f);ã€€ã€€//0.01ç§’
         }
     }
-    private void Attack()  // UŒ‚ŠÖ”
+    private void Attack()  // æ”»æ’ƒé–¢æ•°
     {
         if (Input.GetKey("return"))
         {
                 StartCoroutine(RotateX_r());
-            GetComponent<BoxCollider>().enabled = true;//ƒoƒbƒg“–‚½‚è”»’èON
+            GetComponent<BoxCollider>().enabled = true;//ãƒãƒƒãƒˆå½“ãŸã‚Šåˆ¤å®šON
         }
         if (Input.GetKeyUp("return"))
         {
-            GetComponent<BoxCollider>().enabled = false;//ƒoƒbƒg“–‚½‚è”»’èOFF
+            GetComponent<BoxCollider>().enabled = false;//ãƒãƒƒãƒˆå½“ãŸã‚Šåˆ¤å®šOFF
         }
      
     }

@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float speed = 7.0f;
     [SerializeField]
-    private float lowSpeed; //ƒAƒCƒeƒ€‚ğ‚Á‚Ä‚¢‚éó‘Ô‚Ì©g‚ÌƒXƒs[ƒh
+    private float lowSpeed; //ã‚¢ã‚¤ãƒ†ãƒ ã‚’æŒã£ã¦ã„ã‚‹çŠ¶æ…‹ã®è‡ªèº«ã®ã‚¹ãƒ”ãƒ¼ãƒ‰
 
     private bool b_left;
     private bool b_right;
@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private float Right;
     private float Left;
 
-    public bool HaveItem = false;   //ƒAƒCƒeƒ€‚ğ‚Á‚Ä‚¢‚é‚©
+    public bool HaveItem = false;   //ã‚¢ã‚¤ãƒ†ãƒ ã‚’æŒã£ã¦ã„ã‚‹ã‹
     void Start()
     {
         b_left = true;
