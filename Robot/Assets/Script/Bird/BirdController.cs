@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Timers;
 
 public class BirdController : MonoBehaviour
 {
@@ -42,6 +43,9 @@ public class BirdController : MonoBehaviour
         transform.LookAt(target.transform.position);
 
         homePos = this.transform.position;
+
+        
+        tagetMarking();
     }
 
     // Update is called once per frame
@@ -49,8 +53,6 @@ public class BirdController : MonoBehaviour
     {
         if(onMove)
             move();
-        else 
-            tagetMarking();
     }
 
     private void move()
@@ -69,25 +71,25 @@ public class BirdController : MonoBehaviour
     {
         transform.LookAt(homePos);
         back = true;
+        Destroy(marking.gameObject);
     }
 
     private void tagetMarking()
     {
         if(marking == null)
             marking = Instantiate(markingPrefab, target.transform.position, Quaternion.identity);
+        Timer m_timer = new Timer();
 
-        float m_waitTime = 2.0f;
-        Debug.Log(m_waitTime);
+        // タイマーの間隔
+        int m_timerInterval = 1000;
+        m_timer.Interval = m_timerInterval;
 
-        while(true)
+        m_timer.Elapsed += (sender, e) =>
         {
-            m_waitTime -= Time.deltaTime;
-            Debug.Log(m_waitTime);
-            if(m_waitTime <= 0)
-            {
-                onMove = true;
-                break;
-            }
-        }
+            onMove = true;
+            m_timer.Stop();
+            m_timer.Close();
+        };
+        m_timer.Start();
     }
 }
