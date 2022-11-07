@@ -74,7 +74,7 @@ public class SponeBird : MonoBehaviour
         int randPos = Random.Range(0, pos.Count);
         bird = Instantiate(birdPrefab, pos[randPos], Quaternion.identity);
 
-
+        pos.RemoveRange(0, pos.Count);
     }
 
     // List(pos) に値を代入する
@@ -88,6 +88,7 @@ public class SponeBird : MonoBehaviour
         directions = direction.UP;
         // numberの値にてdirectionsの要素数を変更し、posに座標を代入する
         directions += number;
+
         switch (directions)
         {
             case direction.UP:
