@@ -14,6 +14,12 @@ public class BirdController : MonoBehaviour
 
     private float destroyTime = 3.0f;                   // 消えるまでの時間
 
+    [SerializeField]
+    private GameObject markingPrefab;                   // プレハブ取得用
+    private bool onMove = false;
+
+    private GameObject marking;
+
     // trueかfalseをランダムにどちらか返す
     private bool randomBool()
     {
@@ -41,7 +47,10 @@ public class BirdController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        move();
+        if(onMove)
+            move();
+        else 
+            tagetMarking();
     }
 
     private void move()
@@ -60,5 +69,25 @@ public class BirdController : MonoBehaviour
     {
         transform.LookAt(homePos);
         back = true;
+    }
+
+    private void tagetMarking()
+    {
+        if(marking == null)
+            marking = Instantiate(markingPrefab, target.transform.position, Quaternion.identity);
+
+        float m_waitTime = 2.0f;
+        Debug.Log(m_waitTime);
+
+        while(true)
+        {
+            m_waitTime -= Time.deltaTime;
+            Debug.Log(m_waitTime);
+            if(m_waitTime <= 0)
+            {
+                onMove = true;
+                break;
+            }
+        }
     }
 }

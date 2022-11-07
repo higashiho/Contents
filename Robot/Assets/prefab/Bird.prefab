@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  markingPrefab: {fileID: 314566958763533637, guid: c80bda1596d6a4c43a37c7d213e40079, type: 3}
 --- !u!114 &4092151725892445721
 MonoBehaviour:
   m_ObjectHideFlags: 0
